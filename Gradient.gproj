@@ -1,0 +1,11 @@
+<project>
+ <properties osx_signingId="" osx_bundle="com.yourdomain." logicalWidth="320" iosDevice="0" tv_icon="" encryptAssets="0" app_icon="" fps="60" disableSplash="0" version_code="1" orientation="0" osx_domain="giderosmobile.com" windowWidth="0" splash_v_image="" touchToMouse="1" version="1.0" html5_pack="0" logicalHeight="480" splash_h_image="" scaleMode="0" win_domain="giderosmobile.com" mouseTouchOrder="0" packageName="com.yourdomain.yourapp" build_number="1" encryptCode="0" app_name="" android_template="0" html5_host="" architecture="0" autorotation="0" html5_mem="256" osx_org="GiderosMobile" backgroundColor="#ffffff" osx_installerId="" ios_bundle="com.yourdomain." mouseToTouch="1" exportMode="0" windowHeight="0" retinaDisplay="0" osx_category="5" winrt_package="com.yourdomain.yourapp" win_org="GiderosMobile" splashScaleMode="0" winrt_org="GiderosMobile">
+  <imageScales/>
+  <plugins/>
+  <exports/>
+ </properties>
+ <file source="pexels-photo-89432.png"/>
+ <file source="Roboto-Regular.ttf"/>
+ <file source="uiGradient.lua"/>
+ <file source="main.lua"/>
+</project>
