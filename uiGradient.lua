@@ -97,17 +97,25 @@ function uiGradient:draw(conf)
 		
 		if next(self.conf.textureArrayCoordinates)== nil then
 			
+			--------------------------
 			--matrix doesn't work
-			--local matrix = Matrix.new(unpack(conf.matrix))
-			--matrix:scale(.3,.3)
-			--self.conf.texture[#self.conf.texture+1]=matrix
+			---------------------------
+			local matrix = Matrix.new(unpack(conf.matrix))
+			matrix:scale(1,1)
+			self.conf.texture[#self.conf.texture+1]=matrix
 			
-			--like a box
+			--like a box: only support two colors
+			--[[
 			self.conf.textureArrayCoordinates = {0,				0,
 												min(w,d[1]),	0,
 												0, 				min(h,d[2]),
 												min(w,d[1]),	min(h,d[2]),
 												}
+			]]
+			---------------------------
+			--support many colors
+			---------------------------
+			self.conf.textureArrayCoordinates = self.vertexArray
 		end
 		
 		--print(unpack(self.conf.texture))
@@ -152,15 +160,15 @@ function uiGradient:rectangle(conf)
 	-- http://catlikecoding.com/unity/tutorials/procedural-grid/
 
 	1-----2-----3
-    |\	  |\	|				
-    | \	  | \	|
-	|  \  |  \	|
-	|   \ |   \	|
+    	|\    |\    |				
+    	| \   | \   |
+	|  \  |  \  |
+	|   \ |   \ |
 	4-----5-----6
-	|\	  |\	|				
-    | \	  | \	|
-	|  \  |  \	|
-	|   \ |   \	|
+	|\    |\    |				
+   	| \   | \   |
+	|  \  |  \  |
+	|   \ |   \ |
 	7-----8-----9
 	
 	
@@ -170,6 +178,7 @@ function uiGradient:rectangle(conf)
 	1	5	4
 	2	3	6
 	2	6	5
+	---------------
 	4	5	8
 	4	8	7
 	5	6	9
