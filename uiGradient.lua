@@ -40,7 +40,8 @@
 	THE SOFTWARE.
 	
 	---------------------------------------------
-	version 1.0.0			|		dic.06.2017
+	version 1.0.0			|		dic.06.2017	| Launch on Gideros Forum
+	version 1.0.1			|		dic.11.2017	| Texture Support (Scale, Anchor Point, Deform)
 	---------------------------------------------
 	CLASS: uiGradient
 	---------------------------------------------
