@@ -99,11 +99,16 @@ function uiGradient:draw(conf)
 		local px, py	 	= conf.perX, conf.perY
 		local dimX, dimY 	= d[1], d[2]
 		-----------------------
-		-- fix nul space
+		-- fix scale texture
 		-----------------------
-		conf.scaleTexture[1] = max(conf.scaleTexture[1],dimX/tw)
-		conf.scaleTexture[2] = max(conf.scaleTexture[2],dimY/th)
-		
+		if conf.deform then
+			conf.scaleTexture[1] = max(conf.scaleTexture[1],dimX/tw)
+			conf.scaleTexture[2] = max(conf.scaleTexture[2],dimY/th)
+		else
+			conf.scaleTexture[1] = max(conf.scaleTexture[1],dimX/tw, conf.scaleTexture[2], dimY/th)
+			conf.scaleTexture[2] = conf.scaleTexture[1]
+		end
+		--print(unpack(conf.scaleTexture))
 		local dimX, dimY 	= dimX/conf.scaleTexture[1], dimY/conf.scaleTexture[2]
 		local dx, dy	 	= tw-dimX, th-dimY
 		local aX, aY	 	= conf.anchorTexture[1], conf.anchorTexture[2]
@@ -228,8 +233,10 @@ function uiGradient:rectangle(conf)
 									--					{"image.png", true, {wrap = Texture.REPEAT}}
 									-- Pixel Data		{nil,300,400;, false, {extend=false}}
 		anchorTexture = {.5,.5},		
-		scaleTexture = {1,1},		-- scaleX, scaleY
-		textureArrayCoordinates={}	-- empty
+		scaleTexture = {1,1},		-- sX,sY calculate for you scale perfect when deform is false
+						-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
+		textureArrayCoordinates={},	-- empty
+		deform = false,			-- if you don't need animation like to jelly
 		
 	}
 	
