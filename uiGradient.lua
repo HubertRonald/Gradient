@@ -89,37 +89,39 @@ function uiGradient:draw(conf)
 	self.mesh:setIndexArray(unpack(self.indexArray))
 	self.mesh:setColorArray(unpack(self.colorArray))
 	
-	--texture
+	-- texture
 	if #self.conf.texture>0 then
 		local d = conf.dimension
-		local img=Texture.new(unpack(self.conf.texture))
-		local w,h=img:getWidth(),img:getHeight()
+		local img = Texture.new(unpack(self.conf.texture))
+		local tw,th = img:getWidth(),img:getHeight()
+		
+		local xSize, ySize	= #conf.color, #conf.color
+		local px, py	 	= conf.perX, conf.perY
+		local dimX, dimY 	= d[1], d[2]
+		-----------------------
+		-- fix nul space
+		-----------------------
+		conf.scaleTexture[1] = max(conf.scaleTexture[1],dimX/tw)
+		conf.scaleTexture[2] = max(conf.scaleTexture[2],dimY/th)
+		
+		local dimX, dimY 	= dimX/conf.scaleTexture[1], dimY/conf.scaleTexture[2]
+		local dx, dy	 	= tw-dimX, th-dimY
+		local aX, aY	 	= conf.anchorTexture[1], conf.anchorTexture[2]
 		
 		if next(self.conf.textureArrayCoordinates)== nil then
+			for j=1, ySize do		
+				for i=1, xSize do	
+					----------------------------------------------
+					-- vertex
+					----------------------------------------------
+					self.conf.textureArrayCoordinates[#self.conf.textureArrayCoordinates+1] = dimX*px[i]+aX*dx	--vertex X
+					self.conf.textureArrayCoordinates[#self.conf.textureArrayCoordinates+1] = dimY*py[j]+aY*dy	--vertex Y
+				end
+				
+			end
 			
-			--------------------------
-			--matrix doesn't work
-			---------------------------
-			local matrix = Matrix.new(unpack(conf.matrix))
-			matrix:scale(1,1)
-			self.conf.texture[#self.conf.texture+1]=matrix
-			
-			--like a box: only support two colors
-			--[[
-			self.conf.textureArrayCoordinates = {0,				0,
-												min(w,d[1]),	0,
-												0, 				min(h,d[2]),
-												min(w,d[1]),	min(h,d[2]),
-												}
-			]]
-			---------------------------
-			--support many colors
-			---------------------------
-			self.conf.textureArrayCoordinates = self.vertexArray
 		end
-		
-		--print(unpack(self.conf.texture))
-		self.mesh:setTexture(Texture.new(unpack(conf.texture)))
+		self.mesh:setTexture(img)
 		self.mesh:setTextureCoordinateArray(self.conf.textureArrayCoordinates)
 	end
 	
@@ -138,14 +140,17 @@ function uiGradient:clean()
 	
 	if next(self.conf.texture)==nil then
 		self.mesh:clearTextureCoordinateArray()
-		self.mesh:clearTexture(self.conf.texture.slot or 0) 
+		self.mesh:clearTexture(self.conf.texture.slot or 0)
+		self.conf.textureArrayCoordinates={}
 	end
 	
 	--empty tables
 	self.vertexArray= {}
 	self.indexArray = {}
 	self.colorArray = {}
-	self.conf.textureCoordinates={}
+	
+	self.conf.perX={}
+	self.conf.perY={}
 	
 	self.mesh:removeFromParent()
 	
@@ -205,7 +210,6 @@ function uiGradient:rectangle(conf)
 									-- if {} you want equal quantity colors - 1
 									-- cumulative percentaje (max number One) or .
 									-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
-		matrix = {1, tan(0), tan(0), 1, 0, 0},
 		
 		----------------------------------------------------------------------
 		-- geometry info
@@ -223,9 +227,9 @@ function uiGradient:rectangle(conf)
 									-- or ike always	{"image.png", false, {transparentColor = 0xff00ff}}
 									--					{"image.png", true, {wrap = Texture.REPEAT}}
 									-- Pixel Data		{nil,300,400;, false, {extend=false}}
-		textureArrayCoordinates={},	-- like array : (x1,y1, x2,y2, x3,y3, ...)	
-									-- if {} it takes texture from top left until filling the mesh canvas
-									-- in the shape of a rectangle
+		anchorTexture = {.5,.5},		
+		scaleTexture = {1,1},		-- scaleX, scaleY
+		textureArrayCoordinates={}	-- empty
 		
 	}
 	
@@ -287,6 +291,7 @@ function uiGradient:rectangle(conf)
 	local px, py = self.conf.perX, self.conf.perY
 	table.insert(px,1,0)
 	table.insert(py,1,0)
+	self.conf.perX, self.conf.perY = px, py
 	
 	local dimX, dimY = dim[1], dim[2]
 	self.conf.dimension = dim
