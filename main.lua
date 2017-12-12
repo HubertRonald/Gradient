@@ -115,9 +115,10 @@ function loadGraph()
 														--					{"image.png", true, {wrap = Texture.REPEAT}}
 														-- Pixel Data		{nil,300,400;, false, {extend=false}}
 			
-			--textureArrayCoordinates={},	-- like array : (x1,y1, x2,y2, x3,y3, ...)	
-											-- if {} it takes texture from top left until filling the mesh canvas
-											-- in the shape of a rectangle
+			anchorTexture={.2,.5},
+			scaleTexture = {0,0},		-- sX,sY calculate for you scale perfect when deform is false
+										-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
+			deform = false,				-- if you don't need animation like to jelly
 			
 			
 			----------------------------------------------------------------------
@@ -132,7 +133,7 @@ function loadGraph()
 										-- if {} you want equal quantity colors - 1
 										-- cumulative percentaje (max number One) or .
 										-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
-			--matrix = {1, 0, 0, 1, 0, 0}
+			
 			----------------------------------------------------------------------
 			
 		}
