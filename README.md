@@ -3,9 +3,9 @@ Mesh canvas Lua is a script for Gideros Mobile
 
 ## Main Features
 * You can create procedural gradient color in rectangle shape
-<p align="center">
+* You can create procedural radial gradient color in regular polygon shape
 
-</p>
+![regularpolygons](https://user-images.githubusercontent.com/7612715/34508680-1725bf24-f010-11e7-9a6a-d59465117828.png)
 
 ## Built With
 
