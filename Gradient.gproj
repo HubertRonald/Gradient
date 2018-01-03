@@ -1,0 +1,41 @@
+<project>
+ <properties mouseToTouch="1" osx_domain="giderosmobile.com" splashScaleMode="0" app_icon="" version="1.0" splash_v_image="" mouseTouchOrder="0" html5_pack="0" win_org="GiderosMobile" scaleMode="0" splash_h_image="" win_domain="giderosmobile.com" packageName="com.yourdomain.yourapp" encryptCode="0" backgroundColor="#ffffff" osx_installerId="" encryptAssets="0" build_number="1" tv_icon="" html5_host="" html5_mem="256" autorotation="0" ios_bundle="com.yourdomain." app_name="" retinaDisplay="0" fps="60" exportMode="0" winrt_package="com.yourdomain.yourapp" logicalHeight="480" touchToMouse="1" osx_category="5" windowHeight="0" winrt_org="GiderosMobile" osx_signingId="" iosDevice="0" android_template="0" osx_bundle="com.yourdomain." disableSplash="0" logicalWidth="320" architecture="0" osx_org="GiderosMobile" version_code="1" orientation="1" windowWidth="0">
+  <imageScales/>
+  <plugins/>
+  <exports/>
+ </properties>
+ <folder name="Sources">
+  <folder name="Fonts">
+   <file source="Sources/Fonts/Roboto-Regular.ttf"/>
+  </folder>
+  <folder name="Images">
+   <folder name="Faces">
+    <file source="Sources/Images/Faces/peruvianModel_Maju_001.png"/>
+    <file source="Sources/Images/Faces/ariel-lustre-208615.png"/>
+   </folder>
+   <folder name="Landscape">
+    <file source="Sources/Images/Landscapes/pexels-photo-89432.png"/>
+    <file source="Sources/Images/Landscapes/jeremiah-berman-282409.png"/>
+   </folder>
+   <folder name="Splash">
+    <file source="Sources/Images/Splash/splashWhite_009.png"/>
+    <file source="Sources/Images/Splash/splashWhite_008.png"/>
+    <file source="Sources/Images/Splash/splashWhite_007.png"/>
+    <file source="Sources/Images/Splash/splashWhite_006.png"/>
+    <file source="Sources/Images/Splash/splashWhite_005.png"/>
+    <file source="Sources/Images/Splash/splashWhite_004.png"/>
+    <file source="Sources/Images/Splash/splashWhite_003.png"/>
+    <file source="Sources/Images/Splash/splashWhite_002.png"/>
+    <file source="Sources/Images/Splash/splashWhite_001.png"/>
+   </folder>
+  </folder>
+ </folder>
+ <folder name="Samples">
+  <file excludeFromExecution="1" source="Samples/Sample001.lua"/>
+  <file excludeFromExecution="1" source="Samples/Sample002.lua"/>
+  <file excludeFromExecution="1" source="Samples/Sample003.lua"/>
+  <file excludeFromExecution="1" source="Samples/Sample004.lua"/>
+ </folder>
+ <file source="uiGradient.lua"/>
+ <file source="main.lua"/>
+</project>
