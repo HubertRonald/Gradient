@@ -43,20 +43,20 @@
 	version 1.0.0			|		dic.06.2017			| Launch on Gideros Forum
 	version 1.0.1			|		dic.11.2017			| Texture Support (Scale, Anchor Point, Deform)
 	version 1.1.0			|		ene.02.2018			| Radial Gradient, regular polygons, antialiasing mode**,
-														  Shapes derivatives of regular polygons like circles,
-														  donuts, ellipses, rectangles and so on.
-														  Regular polygons with hole
-														  Rotate only mesh
-														  **/ This feature is only available for mesh without texture
+											  Shapes derivatives of regular polygons like circles,
+											  donuts, ellipses, rectangles and so on.
+											  Regular polygons with hole
+											  Rotate only mesh
+											  **/ This feature is only available for mesh without texture
 	---------------------------------------------
 	CLASS: uiGradient
 	---------------------------------------------
 	Functions:
-				-------------------------------
-				function uiGradient:setup(conf)
-				-------------------------------
-				In this function is detail each
-				variable used
+	-------------------------------
+	function uiGradient:setup(conf)
+	-------------------------------
+	In this function is detail each
+	variable used
 	–––––––––––––––––––––––––––––––––––––––––––––
 	
 --]]
