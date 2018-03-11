@@ -1,5 +1,5 @@
 # Gradient
-Mesh canvas Lua is a script for Gideros Mobile
+Gradient is a small library which offers a clean, minimalistic but powerful API for gradients on mesh canvas when you use it on Gideros Mobile. This script take colors from uiGradients like inspiration.
 
 ## Main Features
 * You can create procedural gradient color in rectangle shape
@@ -16,6 +16,10 @@ Mesh canvas Lua is a script for Gideros Mobile
 * **Hubert Ronald** - *Initial work* - [HubertRonald](https://github.com/HubertRonald)
 
 See also the list of [contributors](https://github.com/HubertRonald/Gradient/contributors) who participated in this project.
+
+## Inspiration
+
+You can see the [uiGradients](https://uigradients.com/) page for more details
 
 ## License
 
