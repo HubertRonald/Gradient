@@ -99,7 +99,7 @@ end
 
 
 ----------------------------------------------------------------------
---Important read this information about paramentes
+-- Important read this information about parametres
 ----------------------------------------------------------------------
 function uiGradient:setup(conf)
 	self.conf={
@@ -112,29 +112,29 @@ function uiGradient:setup(conf)
 		radius = 100, 
 		center = {0,0},
 		scalePolygon = {1,1},		--(!!!) values higher than 1, could deforming your texture
-		hole = false,				--(!!!) it's only true when you call regular polygon function and derivative functions
-		rIn = 0,					--(!!!) if hole == true so you can defiened radius inside (rIn) < radius
+		hole = false,			--(!!!) it's only true when you call regular polygon function and derivative functions
+		rIn = 0,			--(!!!) if hole == true so you can defiened radius inside (rIn) < radius
 		
 		----------------------------------------------------------------------
 		-- color info
 		----------------------------------------------------------------------
 		color = {"0xfcfcfc","0xfcfcfc"},	-- colors are like edge: minimum 2 colors
-		alpha = {},							--(!!!) if {} you want equal quantity alpha: 1 by default
-											-- 		quantity alphas by each color, for example {.5, .8} by two colors
+		alpha = {},				--(!!!) if {} you want equal quantity alpha: 1 by default
+							--quantity alphas by each color, for example {.5, .8} by two colors
 		
 		----------------------------------------------------------------------
 		-- These paramentes are in Version Aplha in this moment
 		----------------------------------------------------------------------
 		--alphaGrandient = false,		-- if it's true so alpha'll fall porportionally
-		perX = {}, 					--(!!!) quantity by each color "not alpha":
-									-- 		if {} you want equal quantity colors - 1
-									-- 		cumulative percentaje (max number One) or .
-									-- 		Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
+		perX = {}, 				--(!!!) quantity by each color "not alpha":
+							-- if {} you want equal quantity colors - 1
+							-- cumulative percentaje (max number One) or .
+							-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
 									
-		perY = {},					--(!!!) quantity by each color "not alpha":
-									-- 		if {} you want equal quantity colors - 1
-									-- 		cumulative percentaje (max number One) or .
-									-- 		Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
+		perY = {},				--(!!!) quantity by each color "not alpha":
+							-- if {} you want equal quantity colors - 1
+							-- cumulative percentaje (max number One) or .
+							-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
 		radialGradient = false,		--(!!!) it's only true when you call regular polygon function and derivative functions
 		
 		----------------------------------------------------------------------
@@ -147,8 +147,8 @@ function uiGradient:setup(conf)
 		rotation = 0,				-- as mesh as texture are going to rotate
 		rotationMesh = 0,			-- only mesh is going to rotate
 		
-		way = "tb",					-- Horizontal or Vertical Gradient from top to bottom also: "bt", "lr" and "rl" -- Orientation: Portrait
-									--(!!!) Radial gradient from: "co" to "oc": in this moment it doesn't work
+		way = "tb",				-- Horizontal or Vertical Gradient from top to bottom also: "bt", "lr" and "rl" -- Orientation: Portrait
+							--(!!!) Radial gradient from: "co" to "oc": in this moment it doesn't work
 		
 		jaggedFree = true,			-- antialiasing mode
 		fromFunction = "rectangle",	
@@ -157,15 +157,15 @@ function uiGradient:setup(conf)
 		-- texture info
 		----------------------------------------------------------------------
 		texture = {},				-- if {} you don't want this option
-									-- or ike always	{"image.png", false, {transparentColor = 0xff00ff}}
-									--					{"image.png", true, {wrap = Texture.REPEAT}}
-									-- Pixel Data		{nil,300,400;, false, {extend=false}}
+							-- or ike always	{"image.png", false, {transparentColor = 0xff00ff}}
+							--			{"image.png", true, {wrap = Texture.REPEAT}}
+							-- Pixel Data		{nil,300,400;, false, {extend=false}}
 		anchorTexture = {.5,.5},		
 		scaleTexture = {1,1},		-- sX,sY calculate for you scale perfect when deform is false
-									-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
+						-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
 		textureArrayCoordinates={},	-- empty
-		deform = false,				-- if you don't need animation like to jelly
-		colorOn = true,				-- if false texture will take shape of the mesh 
+		deform = false,			-- if you don't need animation like to jelly
+		colorOn = true,			-- if false texture will take shape of the mesh 
 		
 	}
 	
@@ -340,30 +340,30 @@ function uiGradient:rectangle(conf)
 	-- http://catlikecoding.com/unity/tutorials/procedural-grid/
 
 	1-----2-----3
-    |\	  |\	|				
-    | \	  | \	|
-	|  \  |  \	|
-	|   \ |   \	|
+    	|\    |\    |				
+    	| \   | \   |
+	|  \  |  \  |
+	|   \ |   \ |
 	4-----5-----6
-	|\	  |\	|				
-    | \	  | \	|
-	|  \  |  \	|
-	|   \ |   \	|
+	|\    |\    |				
+    	| \   | \   |
+	|  \  |  \  |
+	|   \ |   \ |
 	7-----8-----9
 	
 	
 	Index Array:
-	------------
+	------------------
 	1	2	5
 	1	5	4
 	2	3	6
 	2	6	5
-	------------
+	------------------
 	4	5	8
 	4	8	7
 	5	6	9
 	5	9	8
-	------------
+	------------------
 ]]
 	----------------------------------------------------------------
 	-- update self.conf={}
@@ -380,20 +380,20 @@ function uiGradient:rectangle(conf)
 	--squads
 	for y=1,ySize-1 do
 		for x=1,xSize-1 do
-			--print(x.."-"..y..": ", vi, vi+1,		vi+xSize+1)				-- first triangle
-			--print(x.."-"..y..": ", vi, vi+xSize+1,	vi+xSize)			-- second triangle
+			--print(x.."-"..y..": ", vi, vi+1,		vi+xSize+1)	-- first triangle
+			--print(x.."-"..y..": ", vi, vi+xSize+1,	vi+xSize)	-- second triangle
 			
-			a2 = vi + xSize + 1								--(2)
+			a2 = vi + xSize + 1						--(2)
 			
 			--first triangle
-			self.indexArray[#self.indexArray+1] = vi		--(1)
+			self.indexArray[#self.indexArray+1] = vi			--(1)
 			self.indexArray[#self.indexArray+1] = vi+1
-			self.indexArray[#self.indexArray+1] = a2		--(2)
+			self.indexArray[#self.indexArray+1] = a2			--(2)
 			
 			--second triangle
-			self.indexArray[#self.indexArray+1] = vi		--(1)
-			self.indexArray[#self.indexArray+1] = a2		--(2)
-			self.indexArray[#self.indexArray+1] = a2-1		--vi+xSize+1
+			self.indexArray[#self.indexArray+1] = vi			--(1)
+			self.indexArray[#self.indexArray+1] = a2			--(2)
+			self.indexArray[#self.indexArray+1] = a2-1			--vi+xSize+1
 			
 			vi=vi+1
 			
@@ -459,8 +459,8 @@ end
 
 function uiGradient:circle(conf)
 	local conf = conf
-	conf.edges = conf.edges or 54	--(!!!) circle function call regular polygon function so it works with 54 edge
-									---		but you can up quantity edges if you need a rendering best
+	conf.edges = conf.edges or 54			--(!!!) circle function call regular polygon function so it works with 54 edge
+							---but you can up quantity edges if you need a rendering best
 	conf.dimension = {conf.radius,conf.radius}
 	self:regularPolygon(conf)
 end
@@ -503,7 +503,7 @@ function uiGradient:regularPolygon(conf)
 	---------------------------------------------------
 	-- antializing
 	---------------------------------------------------
-	local adj = 2				--(!!!) width of degraded:its nice (value 2) but you can up this value according to your requires
+	local adj = 2					--(!!!) width of degraded:its nice (value 2) but you can up this value according to your requires
 	if self.conf.jaggedFree then
 		
 		pX[#pX], pY[#pY]=(r-adj)/r,(r-adj)/r
