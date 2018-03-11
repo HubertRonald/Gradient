@@ -135,7 +135,7 @@ function uiGradient:setup(conf)
 							-- if {} you want equal quantity colors - 1
 							-- cumulative percentaje (max number One) or .
 							-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
-		radialGradient = false,		--(!!!) it's only true when you call regular polygon function and derivative functions
+		radialGradient = false,			--(!!!) it's only true when you call regular polygon function and derivative functions
 		
 		----------------------------------------------------------------------
 		-- geometry info
@@ -161,11 +161,11 @@ function uiGradient:setup(conf)
 							--			{"image.png", true, {wrap = Texture.REPEAT}}
 							-- Pixel Data		{nil,300,400;, false, {extend=false}}
 		anchorTexture = {.5,.5},		
-		scaleTexture = {1,1},		-- sX,sY calculate for you scale perfect when deform is false
-						-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
-		textureArrayCoordinates={},	-- empty
-		deform = false,			-- if you don't need animation like to jelly
-		colorOn = true,			-- if false texture will take shape of the mesh 
+		scaleTexture = {1,1},			-- sX,sY calculate for you scale perfect when deform is false
+							-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
+		textureArrayCoordinates={},		-- empty
+		deform = false,				-- if you don't need animation like to jelly
+		colorOn = true,				-- if false texture will take shape of the mesh 
 		
 	}
 	
@@ -605,7 +605,7 @@ end
 
 
 --------------------------------------------------
--- coming soon ;)
+-- new functionalities coming soon ;)
 --------------------------------------------------
 function uiGradient:line() end
 function uiGradient:convexPolygon() end
@@ -615,13 +615,13 @@ function uiGradient:convexPolygon() end
 function uiGradient:way(conf)
 
 	local c, a, d = conf.color, conf.alpha, conf.dimension
-	if conf.way=="lr" then 	-- from left to right
+	if conf.way=="lr" then 				-- from left to right
 		return c, a, d
-	elseif conf.way=="rl" then -- from right to left
+	elseif conf.way=="rl" then 			-- from right to left
 		return reverse(c), reverse(a), d
-	elseif conf.way=="bt" then -- from bottom to top
+	elseif conf.way=="bt" then 			-- from bottom to top
 		return reverse(c), reverse(a), d
-	else				-- from top to bottom
+	else						-- from top to bottom
 		return c, a, d
 	end
 
