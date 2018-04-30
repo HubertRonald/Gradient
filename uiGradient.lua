@@ -14,7 +14,7 @@
 	by Hubert Ronald
 	contact: hubert.ronald@gmail.com
 	Development Studio: [-] Liasoft
-	Date: Dec 5th, 2017
+	Date: Jan 2th, 2018
 	
 	THIS PROGRAM is developed by Hubert Ronald
 	https://sites.google.com/view/liasoft/home
@@ -22,7 +22,7 @@
 	but keep reference to its creator
 	The MIT License (MIT)
 	
-	Copyright (C) 2017 Hubert Ronald
+	Copyright (C) 2018 Hubert Ronald
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
 	in the Software without restriction, including without limitation the rights
@@ -42,7 +42,7 @@
 	---------------------------------------------
 	version 1.0.0			|		dic.06.2017			| Launch on Gideros Forum
 	version 1.0.1			|		dic.11.2017			| Texture Support (Scale, Anchor Point, Deform)
-	version 1.1.0			|		ene.02.2018			| Radial Gradient, regular polygons, antialiasing mode**,
+	version 1.1.0			|		jan.02.2018			| Radial Gradient, regular polygons, antialiasing mode**,
 											  Shapes derivatives of regular polygons like circles,
 											  donuts, ellipses, rectangles and so on.
 											  Regular polygons with hole
