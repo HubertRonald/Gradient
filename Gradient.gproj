@@ -1,41 +1,68 @@
 <project>
- <properties mouseToTouch="1" osx_domain="giderosmobile.com" splashScaleMode="0" app_icon="" version="1.0" splash_v_image="" mouseTouchOrder="0" html5_pack="0" win_org="GiderosMobile" scaleMode="0" splash_h_image="" win_domain="giderosmobile.com" packageName="com.yourdomain.yourapp" encryptCode="0" backgroundColor="#ffffff" osx_installerId="" encryptAssets="0" build_number="1" tv_icon="" html5_host="" html5_mem="256" autorotation="0" ios_bundle="com.yourdomain." app_name="" retinaDisplay="0" fps="60" exportMode="0" winrt_package="com.yourdomain.yourapp" logicalHeight="480" touchToMouse="1" osx_category="5" windowHeight="0" winrt_org="GiderosMobile" osx_signingId="" iosDevice="0" android_template="0" osx_bundle="com.yourdomain." disableSplash="0" logicalWidth="320" architecture="0" osx_org="GiderosMobile" version_code="1" orientation="1" windowWidth="0">
+ <properties encryptAssets="0" orientation="1" logicalHeight="480" html5_crash="" html5_fbinstant="0" version_code="1" osx_bundle="com.yourdomain." windowWidth="0" ios_bundle="com.yourdomain." vsync="0" mainluaOnly="0" autorotation="0" app_icon="" mouseToTouch="1" html5_fbload="100" html5_pack="0" html5_symbols="0" architecture="0" android_template="0" touchToMouse="1" splash_h_image="" retinaDisplay="0" winrt_package="com.yourdomain.yourapp" logicalWidth="320" windowHeight="0" build_number="1" app_name="" exportMode="0" mouseTouchOrder="0" packageName="com.yourdomain.yourapp" version="1.0" winrt_org="GiderosMobile" osx_org="GiderosMobile" iosDevice="0" win_domain="giderosmobile.com" html5_wasm="0" osx_installerId="" disableSplash="0" html5_host="" win_org="GiderosMobile" osx_signingId="" osx_category="5" tv_icon="" splash_v_image="" splashScaleMode="0" osx_domain="giderosmobile.com" encryptCode="0" scaleMode="0" html5_mem="256" fps="60" backgroundColor="#ffffff">
   <imageScales/>
   <plugins/>
   <exports/>
  </properties>
- <folder name="Sources">
-  <folder name="Fonts">
+ <folder name="assets">
+  <folder name="fonts">
    <file source="assets/fonts/Roboto-Regular.ttf"/>
   </folder>
-  <folder name="Images">
-   <folder name="Faces">
-    <file source="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
-    <file source="assets/images/legacy-faces/ariel-lustre-208615.png"/>
-   </folder>
-   <folder name="Landscape">
-    <file source="assets/images/landscapes/pexels-photo-89432.png"/>
+  <folder name="images">
+   <folder name="landscapes">
     <file source="assets/images/landscapes/jeremiah-berman-282409.png"/>
+    <file source="assets/images/landscapes/pexels-photo-89432.png"/>
    </folder>
-   <folder name="Splash">
-    <file source="assets/images/splashes/splashWhite_009.png"/>
-    <file source="assets/images/splashes/splashWhite_008.png"/>
-    <file source="assets/images/splashes/splashWhite_007.png"/>
-    <file source="assets/images/splashes/splashWhite_006.png"/>
-    <file source="assets/images/splashes/splashWhite_005.png"/>
-    <file source="assets/images/splashes/splashWhite_004.png"/>
-    <file source="assets/images/splashes/splashWhite_003.png"/>
-    <file source="assets/images/splashes/splashWhite_002.png"/>
+   <folder name="legacy-faces">
+    <file source="assets/images/legacy-faces/ariel-lustre-208615.png"/>
+    <file source="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
+   </folder>
+   <folder name="splashes">
     <file source="assets/images/splashes/splashWhite_001.png"/>
+    <file source="assets/images/splashes/splashWhite_002.png"/>
+    <file source="assets/images/splashes/splashWhite_003.png"/>
+    <file source="assets/images/splashes/splashWhite_004.png"/>
+    <file source="assets/images/splashes/splashWhite_005.png"/>
+    <file source="assets/images/splashes/splashWhite_006.png"/>
+    <file source="assets/images/splashes/splashWhite_007.png"/>
+    <file source="assets/images/splashes/splashWhite_008.png"/>
+    <file source="assets/images/splashes/splashWhite_009.png"/>
    </folder>
   </folder>
  </folder>
- <folder name="Samples">
-  <file excludeFromExecution="1" source="examples/gradient_overlay.lua"/>
-  <file excludeFromExecution="1" source="examples/splash_texture_masks.lua"/>
-  <file excludeFromExecution="1" source="examples/radial_shapes.lua"/>
-  <file excludeFromExecution="1" source="examples/legacy_face_texture_mask.lua"/>
+ <folder name="examples">
+  <file source="examples/gradient_overlay.lua" excludeFromExecution="1"/>
+  <file source="examples/legacy_face_texture_mask.lua" excludeFromExecution="1"/>
+  <file source="examples/radial_shapes.lua" excludeFromExecution="1"/>
+  <file source="examples/splash_texture_masks.lua" excludeFromExecution="1"/>
  </folder>
- <file source="src/gradient_mesh.lua"/>
+ <folder name="fonts">
+  <file name="assets/fonts/Roboto-Regular.ttf"/>
+ </folder>
+ <folder name="images">
+  <folder name="landscapes">
+   <file name="assets/images/landscapes/jeremiah-berman-282409.png"/>
+   <file name="assets/images/landscapes/pexels-photo-89432.png"/>
+  </folder>
+  <folder name="legacy-faces">
+   <file name="assets/images/legacy-faces/ariel-lustre-208615.png"/>
+   <file name="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
+  </folder>
+  <folder name="splashes">
+   <file name="assets/images/splashes/splashWhite.psd"/>
+   <file name="assets/images/splashes/splashWhite_001.png"/>
+   <file name="assets/images/splashes/splashWhite_002.png"/>
+   <file name="assets/images/splashes/splashWhite_003.png"/>
+   <file name="assets/images/splashes/splashWhite_004.png"/>
+   <file name="assets/images/splashes/splashWhite_005.png"/>
+   <file name="assets/images/splashes/splashWhite_006.png"/>
+   <file name="assets/images/splashes/splashWhite_007.png"/>
+   <file name="assets/images/splashes/splashWhite_008.png"/>
+   <file name="assets/images/splashes/splashWhite_009.png"/>
+  </folder>
+ </folder>
+ <folder name="src">
+  <file source="src/gradient_mesh.lua"/>
+ </folder>
  <file source="main.lua"/>
 </project>
