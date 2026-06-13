@@ -1,198 +1,308 @@
-----------------------------------------
---	FIX DIMENSION DEVICE
-----------------------------------------
--- Scale Mode: No Scale Top Left
--- logical dimension: 320 x 480
--- Orientation: LandScape
-----------------------------------------
+--------------------------------------------------------------------------------
+-- Gradient overlay
+--
+-- Project setup:
+--   Scale mode: No Scale Top Left
+--   Logical size: 320 x 480
+--   Orientation: Landscape left
+--
+-- This example loads gradient palettes inspired by uiGradients and applies
+-- them over a landscape texture.
+--------------------------------------------------------------------------------
 
 print("\n")
-application:setOrientation(Application.LANDSCAPE_LEFT) 
-application:setBackgroundColor(0x3a3a3a)
 
+application:setOrientation(Application.LANDSCAPE_LEFT)
+application:setBackgroundColor(0xf4f6f8)
 
-----------------------------------------
---all change if you use landscape
-----------------------------------------
-_W = application:getContentWidth()
-_H  = application:getContentHeight()
+--------------------------------------------------------------------------------
+-- Logical dimensions
+--------------------------------------------------------------------------------
 
-application:setLogicalDimensions(_W, _H)
+local contentW = application:getContentWidth()
+local contentH = application:getContentHeight()
+
+application:setLogicalDimensions(contentW, contentH)
+
 _W = application:getLogicalWidth()
-_H  = application:getLogicalHeight()	
+_H = application:getLogicalHeight()
 
 Wdx = application:getLogicalTranslateX() / application:getLogicalScaleX()
 Hdy = application:getLogicalTranslateY() / application:getLogicalScaleY()
-_WD,_HD  = application:getDeviceWidth(), application:getDeviceHeight()	
-_Diag, _DiagD = _W/_H, _WD/_HD
-_HD,_WD = _WD,_HD
-----------------------------------------
 
-pcall(function() require "json" end)
-local uiGradient = require "src/gradient_mesh"
+--------------------------------------------------------------------------------
+-- Dependencies
+--------------------------------------------------------------------------------
 
+local json = nil
 
-local function load( filename )
-	local path = filename..".json"
-	local contents			-- will hold contents of file
-	local file = io.open( path, "r" ) -- io.open opens a file at path. returns nil if no file found
- 
-	if file then
-		contents = file:read( "*a" ) -- read all contents of file into a string
-		io.close( file )		-- close the file after using it
-		return json.decode( contents ) -- return Decoded Json string
-	else
-		return nil	-- or return nil if file didn't ex
+pcall(function()
+	local mod = require "json"
+	if mod then json = mod end
+end)
+
+json = json or _G.json
+
+local GradientMesh = require "src/gradient_mesh"
+
+--------------------------------------------------------------------------------
+-- Config
+--------------------------------------------------------------------------------
+
+local USE_REMOTE_GRADIENTS = true
+local SHOW_UI_LABELS = false -- keep false for clean README screenshots
+
+local IMAGE_PATH = "assets/images/landscapes/"
+local FONT_PATH = "assets/fonts/"
+local LANDSCAPE_TEXTURE = IMAGE_PATH .. "pexels-photo-89432.png"
+
+local REMOTE_GRADIENTS_URL =
+	"https://raw.githubusercontent.com/ghosh/uiGradients/master/gradients.json"
+
+local FALLBACK_GRADIENTS = {
+	{
+		name = "Big Rainbow",
+		colors = {0x00f260, 0x0575e6, 0xf7971e, 0xffd200}
+	},
+	{
+		name = "Cosmic Fusion",
+		colors = {0xff00cc, 0x333399, 0x00dbde}
+	},
+	{
+		name = "Soft Editorial",
+		colors = {0xf8fafc, 0xdbeafe, 0x93c5fd, 0x475569}
+	}
+}
+
+local gradientWays = {"tb", "bt", "lr", "rl"}
+local wayIndex = 1
+local gradientIndex = 1
+
+local currentMesh = nil
+local textName = nil
+local textColors = nil
+local textRotate = nil
+
+--------------------------------------------------------------------------------
+-- Helpers
+--------------------------------------------------------------------------------
+
+local function parseHexColor(value)
+	if type(value) == "number" then
+		return value
 	end
- 
-end
- 
---uiGradients sources
-local loader = UrlLoader.new("https://raw.githubusercontent.com/ghosh/uiGradients/master/gradients.json")
-local function onComplete(e)
-	
-	local out = io.open("|D|data.json", "wb")
-	out:write(e.data)
-	out:close()
-	
-	loadGraph()
+
+	if type(value) == "string" then
+		local clean = value:gsub("#", ""):gsub("0x", "")
+		return tonumber(clean, 16) or 0xffffff
+	end
+
+	return 0xffffff
 end
 
-local function onError() print("error") end
-local function onProgress(e) print("progress: " .. e.bytesLoaded .. " of " .. e.bytesTotal) end
+local function normalizeGradients(data)
+	local gradients = {}
 
-loader:addEventListener(Event.COMPLETE, onComplete)
-loader:addEventListener(Event.ERROR, onError)
-loader:addEventListener(Event.PROGRESS, onProgress)
+	if type(data) ~= "table" then
+		return FALLBACK_GRADIENTS
+	end
 
+	for i = 1, #data do
+		local item = data[i]
 
-function loadGraph()
-	
-	local datos = load("|D|data")
+		if item and item.colors and #item.colors >= 2 then
+			local colors = {}
 
-	--	update syntax colors
-	for i=1, #datos do
-		for j=1, #datos[i].colors do 
-			datos[i].colors[j] = string.gsub(datos[i].colors[j],"#","0x")
+			for j = 1, #item.colors do
+				colors[#colors + 1] = parseHexColor(item.colors[j])
+			end
+
+			gradients[#gradients + 1] = {
+				name = item.name or ("Gradient " .. tostring(i)),
+				colors = colors
+			}
 		end
 	end
 
-
-	--random color select
-	local n=math.random(1,#datos)
-	
-	----------------------------------------------------------------------
-	--sample
-	----------------------------------------------------------------------
-	local path="assets/images/landscapes/"
-	local g = uiGradient.new()
-	local conf={
-			color = datos[n].colors,		-- colors are like vertex: minimum 2 colors 
-			
-			----------------------------------------------------------------------
-			-- by this sample quantity color are random so quantity alphas require some algorithm 
-			-- so you can try different alphas but if you know the amount of colors
-			-- you can configure the alphas manually
-			----------------------------------------------------------------------
-			alpha = {},					-- if {} you want equal quantity alpha: 1 by default
-										-- quantity alphas by each color
-			----------------------------------------------------------------------
-
-			anchor = {0, 0},				
-			dimension = {_WD,_HD},
-			position = {0,0},
-			rotation = 0,
-			way = "tb",					-- from top to bottom also: "bt", "lr" and "rl" --Orientation: Portrait
-			
-			----------------------------------------------------------------------
-			-- enable texture = {... so you can see how this works
-			----------------------------------------------------------------------
-			texture = {path.."pexels-photo-89432.png",true},	-- if {} you don't want this option
-															-- or ike always	{"image.png", false, {transparentColor = 0xff00ff}}
-															--					{"image.png", true, {wrap = Texture.REPEAT}}
-															-- Pixel Data		{nil,300,400;, false, {extend=false}}
-			anchorTexture={.2,.5},
-			scaleTexture = {0,0},		-- sX,sY calculate for you scale perfect when deform is false
-										-- and take larger axis scale viz {.6,0} equal to {.6,.6} when deform is false
-			deform = false,				-- if you don't need animation like to jelly
-			colorOn = true,
-			
-			----------------------------------------------------------------------
-			-- These paramentes are in Version Aplha in this moment
-			----------------------------------------------------------------------
-			--alphaGrandient = true,	-- if it's true so alpha'll fall porportionally
-			--perX = {}, 				-- quantity by each color "not alpha":
-										-- if {} you want equal quantity colors - 1
-										-- cumulative percentaje (max number One) or .
-										-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
-			--perY = {},					-- quantity by each color "not alpha":
-										-- if {} you want equal quantity colors - 1
-										-- cumulative percentaje (max number One) or .
-										-- Sample: 0.2, 0.4, 0.6, 0.9, 1 never start ZERO!!!
-			----------------------------------------------------------------------
-			
-		}
-
-	g:rectangle(conf)
-
-	--helper color info
-	local function listColors(d)
-		t={}; for j=1, #d do t[#t+1] = d[j]..tostring(j==#d and "" or " --> ") end
-		return table.concat(t)
+	if #gradients == 0 then
+		return FALLBACK_GRADIENTS
 	end
-	local path="assets/fonts/"
-	--name info
-	local font=TTFont.new(path.."Roboto-Regular.ttf",20)
-	local textName = TextField.new(font,datos[n].name)
-	textName:setTextColor(0xfcfcfc)
-	textName:setPosition(_WD / 2 - textName:getWidth()/1.5, 50)
-	textName:setAlpha(.9)
-	
-	--color info
-	local colorsName = TextField.new(TTFont.new(path.."Roboto-Regular.ttf",14),listColors(datos[n].colors))
-	colorsName:setTextColor(0xfcfcfc)
-	colorsName:setPosition(_WD / 2 - colorsName:getWidth()/1.5, 90)
-	colorsName:setAlpha(.9)
-	
-	--rotate gradient
-	local p,c = {"tb","bt", "lr", "rl"}, 1
-	local Rotate = TextField.new(font,"Rotate Gradient")
-	Rotate:setTextColor(0xfcfcfc)
-	Rotate:setPosition(_WD / 2 - Rotate:getWidth()/1.5, _HD-50)
-	Rotate:setAlpha(.9)
-	Rotate:addEventListener(Event.MOUSE_DOWN, 
-		function(e)
-			if Rotate:hitTestPoint(e.x, e.y) then
-				g:clean()
-				c=c+1
-				conf.way=p[math.max(math.floor(c%4),1)]
-				g:rectangle(conf)
-				e:stopPropagation()
-			end
-		end)
 
-	--change colors
-	stage:addEventListener(Event.MOUSE_DOWN, 
-		function(e)
-			g:clean()
-			n=math.random(1,#datos)
-			
-			textName:setText(datos[n].name)
-			colorsName:setText(listColors(datos[n].colors))
-			
-			conf.way=p[math.max(math.floor(c%4),1)]
-			conf.color = datos[n].colors
-			g:rectangle(conf)
-			
-			print("\n",datos[n].name,": ", listColors(datos[n].colors))
-			e:stopPropagation()
-		end)
-	
-	stage:addChild(g)
+	return gradients
+end
+
+local function loadJson(filename)
+	if not json then
+		return nil
+	end
+
+	local path = filename .. ".json"
+	local file = io.open(path, "r")
+
+	if not file then
+		return nil
+	end
+
+	local contents = file:read("*a")
+	io.close(file)
+
+	return json.decode(contents)
+end
+
+local function colorList(colors)
+	local values = {}
+
+	for i = 1, #colors do
+		values[#values + 1] = string.format("0x%06X", colors[i])
+	end
+
+	return table.concat(values, " -> ")
+end
+
+local function clearLabels()
+	if textName then
+		textName:removeFromParent()
+		textName = nil
+	end
+
+	if textColors then
+		textColors:removeFromParent()
+		textColors = nil
+	end
+
+	if textRotate then
+		textRotate:removeFromParent()
+		textRotate = nil
+	end
+end
+
+local function renderLabels(gradient)
+	if not SHOW_UI_LABELS then
+		return
+	end
+
+	clearLabels()
+
+	local font = TTFont.new(FONT_PATH .. "Roboto-Regular.ttf", 20)
+	local smallFont = TTFont.new(FONT_PATH .. "Roboto-Regular.ttf", 14)
+
+	textName = TextField.new(font, gradient.name)
+	textName:setTextColor(0xffffff)
+	textName:setAlpha(0.95)
+	textName:setPosition(_W / 2 - textName:getWidth() / 2, 48)
+
+	textColors = TextField.new(smallFont, colorList(gradient.colors))
+	textColors:setTextColor(0xffffff)
+	textColors:setAlpha(0.90)
+	textColors:setPosition(_W / 2 - textColors:getWidth() / 2, 84)
+
+	textRotate = TextField.new(font, "Rotate Gradient")
+	textRotate:setTextColor(0xffffff)
+	textRotate:setAlpha(0.90)
+	textRotate:setPosition(_W / 2 - textRotate:getWidth() / 2, _H - 42)
 
 	stage:addChild(textName)
-	stage:addChild(colorsName)
-	stage:addChild(Rotate)
-	print(n,datos[n].name,": ", listColors(datos[n].colors))
+	stage:addChild(textColors)
+	stage:addChild(textRotate)
+end
 
+local function renderGradient(gradient)
+	if currentMesh then
+		currentMesh:clean()
+		currentMesh:removeFromParent()
+		currentMesh = nil
+	end
+
+	currentMesh = GradientMesh.new()
+
+	local conf = {
+		color = gradient.colors,
+		alpha = {},
+
+		anchor = {0, 0},
+		dimension = {_W, _H},
+		position = {0, 0},
+		rotation = 0,
+		way = gradientWays[wayIndex],
+
+		texture = {LANDSCAPE_TEXTURE, true},
+		anchorTexture = {0.20, 0.50},
+		scaleTexture = {0, 0},
+
+		deform = false,
+		colorOn = true
+	}
+
+	currentMesh:rectangle(conf)
+	stage:addChild(currentMesh)
+
+	renderLabels(gradient)
+
+	print("\n" .. gradient.name .. ": " .. colorList(gradient.colors))
+end
+
+--------------------------------------------------------------------------------
+-- Initial render
+--------------------------------------------------------------------------------
+
+local gradients = FALLBACK_GRADIENTS
+
+renderGradient(gradients[gradientIndex])
+
+--------------------------------------------------------------------------------
+-- Interaction
+--------------------------------------------------------------------------------
+
+stage:addEventListener(Event.MOUSE_DOWN, function(e)
+	if SHOW_UI_LABELS and textRotate and textRotate:hitTestPoint(e.x, e.y) then
+		wayIndex = wayIndex + 1
+		if wayIndex > #gradientWays then wayIndex = 1 end
+
+		renderGradient(gradients[gradientIndex])
+		e:stopPropagation()
+		return
+	end
+
+	gradientIndex = gradientIndex + 1
+	if gradientIndex > #gradients then gradientIndex = 1 end
+
+	renderGradient(gradients[gradientIndex])
+	e:stopPropagation()
+end)
+
+--------------------------------------------------------------------------------
+-- Remote gradients
+--------------------------------------------------------------------------------
+
+if USE_REMOTE_GRADIENTS and json then
+	local loader = UrlLoader.new(REMOTE_GRADIENTS_URL)
+
+	local function onComplete(e)
+		local out = io.open("|D|data.json", "wb")
+
+		if out then
+			out:write(e.data)
+			out:close()
+		end
+
+		local data = loadJson("|D|data")
+		gradients = normalizeGradients(data)
+
+		gradientIndex = math.random(1, #gradients)
+		wayIndex = 1
+
+		renderGradient(gradients[gradientIndex])
+	end
+
+	local function onError()
+		print("Remote gradient load failed. Using fallback gradients.")
+	end
+
+	local function onProgress(e)
+		print("progress: " .. e.bytesLoaded .. " of " .. e.bytesTotal)
+	end
+
+	loader:addEventListener(Event.COMPLETE, onComplete)
+	loader:addEventListener(Event.ERROR, onError)
+	loader:addEventListener(Event.PROGRESS, onProgress)
 end

@@ -35,31 +35,8 @@
   <file source="examples/legacy_face_texture_mask.lua" excludeFromExecution="1"/>
   <file source="examples/radial_shapes.lua" excludeFromExecution="1"/>
   <file source="examples/splash_texture_masks.lua" excludeFromExecution="1"/>
+  <file source="examples/texture_mask_rotated_mesh.lua" excludeFromExecution="1"/>
  </folder>
- <folder name="fonts">
-  <file name="assets/fonts/Roboto-Regular.ttf"/>
- </folder>
- <folder name="images">
-  <folder name="landscapes">
-   <file name="assets/images/landscapes/jeremiah-berman-282409.png"/>
-   <file name="assets/images/landscapes/pexels-photo-89432.png"/>
-  </folder>
-  <folder name="legacy-faces">
-   <file name="assets/images/legacy-faces/ariel-lustre-208615.png"/>
-   <file name="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
-  </folder>
-  <folder name="splashes">
-   <file name="assets/images/splashes/splashWhite.psd"/>
-   <file name="assets/images/splashes/splashWhite_001.png"/>
-   <file name="assets/images/splashes/splashWhite_002.png"/>
-   <file name="assets/images/splashes/splashWhite_003.png"/>
-   <file name="assets/images/splashes/splashWhite_004.png"/>
-   <file name="assets/images/splashes/splashWhite_005.png"/>
-   <file name="assets/images/splashes/splashWhite_006.png"/>
-   <file name="assets/images/splashes/splashWhite_007.png"/>
-   <file name="assets/images/splashes/splashWhite_008.png"/>
-   <file name="assets/images/splashes/splashWhite_009.png"/>
-  </folder>
  </folder>
  <folder name="src">
   <file source="src/gradient_mesh.lua"/>

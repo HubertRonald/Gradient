@@ -1,21 +1,24 @@
 --------------------------------------------------------------------------------
--- Legacy face texture mask
+-- Texture masking over rotated regular polygon meshes
 --
 -- Project setup:
 --   Scale mode: No Scale Top Left
 --   Logical size: 320 x 480
 --   Orientation: Landscape left
 --
--- This example maps a portrait texture over regular hexagon meshes.
--- It shows texture masking, mesh rotation, soft vertex tinting,
--- and antialiased polygon edges.
+-- This example maps a portrait texture over two regular polygon meshes:
+--   1. square mesh
+--   2. rotated square mesh / diamond mesh
+--
+-- The goal is to show texture masking, mesh rotation, vertex color tinting,
+-- and antialiased polygon edges in a clean documentation-friendly scene.
 --------------------------------------------------------------------------------
 
 print("\n")
 
 application:setOrientation(Application.LANDSCAPE_LEFT)
 
--- Soft neutral background for README screenshots.
+-- Neutral documentation-friendly background.
 application:setBackgroundColor(0xf4f6f8)
 
 --------------------------------------------------------------------------------
@@ -44,24 +47,23 @@ local GradientMesh = require "src/gradient_mesh"
 --------------------------------------------------------------------------------
 
 local ASSET_PATH = "assets/images/legacy-faces/"
-local FACE_TEXTURE = ASSET_PATH .. "peruvianModel_Maju_001.png"
+local FACE_TEXTURE = ASSET_PATH .. "ariel-lustre-208615.png"
 
 --------------------------------------------------------------------------------
 -- Palette
 --
--- Very soft editorial tint.
--- The alpha is high because texture + colorOn=true also affects
--- the portrait visibility.
+-- Soft neutral-blue tint.
+-- With texture + colorOn=true, alpha also affects texture visibility.
 --------------------------------------------------------------------------------
 
-local SOFT_FACE_TINT = {
-	0xffffff, -- preserve face detail
-	0xf1f5f9, -- soft light gray
+local PORTRAIT_TINT = {
+	0xffffff, -- center / preserves face detail
+	0xf1f5f9, -- soft neutral light
 	0xdbeafe, -- pale blue
 	0x94a3b8  -- soft slate edge
 }
 
-local SOFT_FACE_ALPHA = {
+local PORTRAIT_ALPHA = {
 	1.00,
 	0.98,
 	0.94,
@@ -75,30 +77,29 @@ local SOFT_FACE_ALPHA = {
 local centerX = _W / 2
 local centerY = _H / 2
 
--- Keep the portrait large but not cropped by the screenshot bounds.
-local radius = math.min(_W * 0.20, _H * 0.42, 245)
+local radius = math.min(_W * 0.20, _H * 0.38, 230)
 
--- Smaller spacing than before.
--- This keeps both shapes visually grouped like the original dark-background demo.
+-- Compact spacing, closer to the original dark-background composition.
 local spacing = radius * 1.08
 
 --------------------------------------------------------------------------------
 -- Helper
 --------------------------------------------------------------------------------
 
-local function addHexagonFaceMask(conf)
+local function addTextureMask(conf)
 	local mesh = GradientMesh.new()
 
 	mesh:circle({
-		-- True regular hexagon.
-		edges = 6,
+		-- Four edges create a square. The rotated variant becomes a diamond.
+		edges = conf.edges or 4,
 		radius = conf.radius or radius,
 
-		-- Center to outside. Keeps the soft/light color near the face center.
+		-- "co" keeps the first color closer to the center and the last color
+		-- toward the outer ring.
 		way = conf.way or "co",
 
-		color = conf.color or SOFT_FACE_TINT,
-		alpha = conf.alpha or SOFT_FACE_ALPHA,
+		color = conf.color or PORTRAIT_TINT,
+		alpha = conf.alpha or PORTRAIT_ALPHA,
 
 		position = conf.position,
 		rotationMesh = conf.rotationMesh or 0,
@@ -106,13 +107,11 @@ local function addHexagonFaceMask(conf)
 
 		texture = {conf.texture or FACE_TEXTURE, true},
 
-		-- Crop controls for peruvianModel_Maju_001.png.
-		anchorTexture = conf.anchorTexture or {0.54, 0.50},
+		-- Crop controls for ariel-lustre-208615.png.
+		anchorTexture = conf.anchorTexture or {0.50, 0.50},
 		scaleTexture = conf.scaleTexture or {1, 1},
 
-		-- Keep false for portraits. A hole cuts the face center.
 		hole = false,
-
 		jaggedFree = true,
 		colorOn = true,
 		deform = false
@@ -127,18 +126,20 @@ end
 -- Examples
 --------------------------------------------------------------------------------
 
--- Left: regular hexagon portrait mask.
-addHexagonFaceMask({
+-- Square texture mask.
+addTextureMask({
 	position = {centerX - spacing, centerY},
 	rotationMesh = 0,
-	anchorTexture = {0.54, 0.50}
+	anchorTexture = {0.50, 0.50},
+	scaleTexture = {1, 1}
 })
 
--- Right: rotated hexagon portrait mask.
-addHexagonFaceMask({
+-- Rotated square / diamond texture mask.
+addTextureMask({
 	position = {centerX + spacing, centerY},
-	rotationMesh = 30,
-	anchorTexture = {0.54, 0.50}
+	rotationMesh = 45,
+	anchorTexture = {0.50, 0.50},
+	scaleTexture = {1, 1}
 })
 
 --------------------------------------------------------------------------------
@@ -151,9 +152,10 @@ addHexagonFaceMask({
 --   local spacing = radius * 1.18
 --
 -- Stronger edge contrast:
---   SOFT_FACE_TINT = {0xffffff, 0xf1f5f9, 0xdbeafe, 0x64748b}
---   SOFT_FACE_ALPHA = {1.00, 0.98, 0.94, 0.90}
+--   PORTRAIT_TINT = {0xffffff, 0xf1f5f9, 0xdbeafe, 0x64748b}
+--   PORTRAIT_ALPHA = {1.00, 0.98, 0.94, 0.90}
 --
--- More visible portrait / less tint:
---   SOFT_FACE_ALPHA = {1.00, 1.00, 0.98, 0.94}
+-- Hexagon variant:
+--   edges = 6
+--   rotationMesh = 30
 --------------------------------------------------------------------------------

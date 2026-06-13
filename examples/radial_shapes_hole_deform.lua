@@ -1,21 +1,20 @@
 --------------------------------------------------------------------------------
--- Legacy face texture mask
+-- Radial shapes, holes, and deformation
 --
 -- Project setup:
 --   Scale mode: No Scale Top Left
 --   Logical size: 320 x 480
 --   Orientation: Landscape left
 --
--- This example maps a portrait texture over regular hexagon meshes.
--- It shows texture masking, mesh rotation, soft vertex tinting,
--- and antialiased polygon edges.
+-- This example demonstrates radial gradient geometry:
+--   1. deformed radial ellipse
+--   2. circular radial gradient
+--   3. radial gradient with inner hole / donut
 --------------------------------------------------------------------------------
 
 print("\n")
 
 application:setOrientation(Application.LANDSCAPE_LEFT)
-
--- Soft neutral background for README screenshots.
 application:setBackgroundColor(0xf4f6f8)
 
 --------------------------------------------------------------------------------
@@ -40,33 +39,16 @@ Hdy = application:getLogicalTranslateY() / application:getLogicalScaleY()
 local GradientMesh = require "src/gradient_mesh"
 
 --------------------------------------------------------------------------------
--- Assets
+-- Palettes
 --------------------------------------------------------------------------------
 
-local ASSET_PATH = "assets/images/legacy-faces/"
-local FACE_TEXTURE = ASSET_PATH .. "peruvianModel_Maju_001.png"
-
---------------------------------------------------------------------------------
--- Palette
---
--- Very soft editorial tint.
--- The alpha is high because texture + colorOn=true also affects
--- the portrait visibility.
---------------------------------------------------------------------------------
-
-local SOFT_FACE_TINT = {
-	0xffffff, -- preserve face detail
-	0xf1f5f9, -- soft light gray
-	0xdbeafe, -- pale blue
-	0x94a3b8  -- soft slate edge
+local PALETTES = {
+	ellipse = {0xe0f2fe, 0x93c5fd, 0x6366f1, 0x334155},
+	circle = {0xfffbeb, 0xfde68a, 0xf9a8d4, 0x9333ea},
+	donut = {0xecfeff, 0x99f6e4, 0x38bdf8, 0x1e3a8a}
 }
 
-local SOFT_FACE_ALPHA = {
-	1.00,
-	0.98,
-	0.94,
-	0.88
-}
+local ALPHA_SOLID = {1.00, 0.98, 0.96, 0.92}
 
 --------------------------------------------------------------------------------
 -- Layout
@@ -75,43 +57,31 @@ local SOFT_FACE_ALPHA = {
 local centerX = _W / 2
 local centerY = _H / 2
 
--- Keep the portrait large but not cropped by the screenshot bounds.
-local radius = math.min(_W * 0.20, _H * 0.42, 245)
-
--- Smaller spacing than before.
--- This keeps both shapes visually grouped like the original dark-background demo.
-local spacing = radius * 1.08
+local base = math.min(_W, _H)
+local radius = math.min(base * 0.25, 150)
+local spacing = radius * 1.48
 
 --------------------------------------------------------------------------------
--- Helper
+-- Helpers
 --------------------------------------------------------------------------------
 
-local function addHexagonFaceMask(conf)
+local function addRadialShape(conf)
 	local mesh = GradientMesh.new()
 
-	mesh:circle({
-		-- True regular hexagon.
-		edges = 6,
+	mesh:regularPolygon({
+		edges = conf.edges or 96,
 		radius = conf.radius or radius,
 
-		-- Center to outside. Keeps the soft/light color near the face center.
 		way = conf.way or "co",
-
-		color = conf.color or SOFT_FACE_TINT,
-		alpha = conf.alpha or SOFT_FACE_ALPHA,
+		color = conf.color,
+		alpha = conf.alpha or ALPHA_SOLID,
 
 		position = conf.position,
-		rotationMesh = conf.rotationMesh or 0,
 		scalePolygon = conf.scalePolygon or {1, 1},
+		rotationMesh = conf.rotationMesh or 0,
 
-		texture = {conf.texture or FACE_TEXTURE, true},
-
-		-- Crop controls for peruvianModel_Maju_001.png.
-		anchorTexture = conf.anchorTexture or {0.54, 0.50},
-		scaleTexture = conf.scaleTexture or {1, 1},
-
-		-- Keep false for portraits. A hole cuts the face center.
-		hole = false,
+		hole = conf.hole or false,
+		rIn = conf.rIn or 0,
 
 		jaggedFree = true,
 		colorOn = true,
@@ -127,33 +97,52 @@ end
 -- Examples
 --------------------------------------------------------------------------------
 
--- Left: regular hexagon portrait mask.
-addHexagonFaceMask({
+-- Deformed radial ellipse.
+addRadialShape({
+	edges = 96,
+	radius = radius * 1.02,
+	way = "oc",
+	color = PALETTES.ellipse,
 	position = {centerX - spacing, centerY},
-	rotationMesh = 0,
-	anchorTexture = {0.54, 0.50}
+	scalePolygon = {1.35, 0.82},
+	hole = false
 })
 
--- Right: rotated hexagon portrait mask.
-addHexagonFaceMask({
+-- Clean circular radial gradient.
+addRadialShape({
+	edges = 120,
+	radius = radius,
+	way = "co",
+	color = PALETTES.circle,
+	position = {centerX, centerY},
+	scalePolygon = {1, 1},
+	hole = false
+})
+
+-- Donut / inner hole radial gradient.
+addRadialShape({
+	edges = 120,
+	radius = radius,
+	way = "oc",
+	color = PALETTES.donut,
 	position = {centerX + spacing, centerY},
-	rotationMesh = 30,
-	anchorTexture = {0.54, 0.50}
+	scalePolygon = {1, 1},
+	hole = true,
+	rIn = radius * 0.42
 })
 
 --------------------------------------------------------------------------------
 -- Tuning
 --
--- Bring them even closer:
---   local spacing = radius * 0.98
+-- More geometric / polygonal look:
+--   edges = 6, 8, 12
 --
--- Separate them a little more:
---   local spacing = radius * 1.18
+-- Smoother circular look:
+--   edges = 96, 120, 160
 --
--- Stronger edge contrast:
---   SOFT_FACE_TINT = {0xffffff, 0xf1f5f9, 0xdbeafe, 0x64748b}
---   SOFT_FACE_ALPHA = {1.00, 0.98, 0.94, 0.90}
+-- Larger hole:
+--   rIn = radius * 0.55
 --
--- More visible portrait / less tint:
---   SOFT_FACE_ALPHA = {1.00, 1.00, 0.98, 0.94}
+-- Smaller hole:
+--   rIn = radius * 0.30
 --------------------------------------------------------------------------------
