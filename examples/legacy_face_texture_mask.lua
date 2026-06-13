@@ -26,8 +26,8 @@ _WD,_HD  = application:getDeviceWidth(), application:getDeviceHeight()
 _Diag, _DiagD = _W/_H, _WD/_HD
 _HD,_WD = _WD,_HD
 ----------------------------------------
-local uiGradient = require "uiGradient"
-local path="Sources/Images/Faces/"
+local uiGradient = require "src/gradient_mesh"
+local path="assets/images/legacy-faces/"
 
 local ed=4	--edges four
 local radius = 250

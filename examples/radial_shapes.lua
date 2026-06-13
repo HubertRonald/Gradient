@@ -26,7 +26,7 @@ _WD,_HD  = application:getDeviceWidth(), application:getDeviceHeight()
 _Diag, _DiagD = _W/_H, _WD/_HD
 _HD,_WD = _WD,_HD
 ----------------------------------------
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 
 local g2 = uiGradient.new()	
 local conf={edges=100,

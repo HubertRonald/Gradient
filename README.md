@@ -44,9 +44,9 @@ The examples below show two main use cases for **Gideros Gradient Mesh**: applyi
 These examples use a source image as a texture and blend it with a generated gradient mesh. This is useful for hero images, game menus, splash screens, atmospheric backgrounds, and visual experiments where the image should keep its structure while gaining a stronger color mood.
 
 <p align="center">
-  <img src="Sources/Images/Landscapes/pexels-photo-89432.png" width="32%" alt="Original landscape image">
-  <img src="Results/gradient-mesh-big-rainbow.png" width="32%" alt="Landscape image with Big Rainbow gradient overlay">
-  <img src="Results/gradient-mesh-big-rainbow-fog.png" width="32%" alt="Landscape image with soft Big Rainbow Fog gradient overlay">
+  <img src="assets/images/landscapes/pexels-photo-89432.png" width="32%" alt="Original landscape image">
+  <img src="docs/images/gradient-mesh-big-rainbow.png" width="32%" alt="Landscape image with Big Rainbow gradient overlay">
+  <img src="docs/images/gradient-mesh-big-rainbow-fog.png" width="32%" alt="Landscape image with soft Big Rainbow Fog gradient overlay">
 </p>
 
 ### Gradient backgrounds and shapes
@@ -54,9 +54,9 @@ These examples use a source image as a texture and blend it with a generated gra
 These examples focus on pure gradient surfaces generated with mesh vertices and interpolated colors. They are useful for UI cards, menu backgrounds, decorative panels, abstract scenes, and quick visual prototyping inside Gideros.
 
 <p align="center">
-  <img src="Results/gradient-mesh-royal-blue.png" width="32%" alt="Royal Blue gradient mesh background">
-  <img src="Results/gradient-mesh-firewatch.png" width="32%" alt="Firewatch gradient mesh background">
-  <img src="Results/gradient-mesh-mango.png" width="32%" alt="Mango gradient mesh background">
+  <img src="docs/images/gradient-mesh-royal-blue.png" width="32%" alt="Royal Blue gradient mesh background">
+  <img src="docs/images/gradient-mesh-firewatch.png" width="32%" alt="Firewatch gradient mesh background">
+  <img src="docs/images/gradient-mesh-mango.png" width="32%" alt="Mango gradient mesh background">
 </p>
 
 > These screenshots are generated examples. For a cleaner portfolio presentation, the visuals are intentionally kept simple: the image carries the gradient result, while names and descriptions live in the README instead of being embedded inside the screenshots.
@@ -77,10 +77,10 @@ The project includes a few small Gideros samples that demonstrate the different 
 `main.lua` works as a simple sample launcher. Uncomment the sample you want to run:
 
 ```lua
--- require "Samples/Sample001" -- gradient overlays using palette data
-require "Samples/Sample002"    -- radial gradients with splash images
--- require "Samples/Sample003" -- regular polygons, holes, and deformation
--- require "Samples/Sample004" -- legacy texture masking experiment
+-- require "examples/gradient_overlay" -- gradient overlays using palette data
+require "examples/splash_texture_masks"    -- radial gradients with splash images
+-- require "examples/radial_shapes" -- regular polygons, holes, and deformation
+-- require "examples/legacy_face_texture_mask" -- legacy texture masking experiment
 ```
 
 ---
@@ -180,7 +180,7 @@ When antialiasing mode is enabled, it adds an extra outer ring with lower alpha 
 Copy `uiGradient.lua` into your Gideros project and require it from your scene or sample file:
 
 ```lua
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 ```
 
 ---
@@ -188,7 +188,7 @@ local uiGradient = require "uiGradient"
 ## Quick start
 
 ```lua
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 
 local gradient = uiGradient.new()
 
@@ -213,7 +213,7 @@ stage:addChild(gradient)
 ## Radial example
 
 ```lua
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 
 local glow = uiGradient.new()
 
@@ -238,7 +238,7 @@ stage:addChild(glow)
 ## Regular polygon example
 
 ```lua
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 
 local polygon = uiGradient.new()
 
@@ -287,7 +287,7 @@ stage:addChild(polygon)
 
 ```txt
 Gradient/
-├── Results/          # Rendered examples and visual outputs
+├── docs/images/          # Rendered examples and visual outputs
 ├── Samples/          # Gideros sample scenes
 ├── Sources/          # Images, fonts, and source assets
 ├── main.lua          # Sample selector

@@ -29,7 +29,7 @@ _HD,_WD = _WD,_HD
 ----------------------------------------
 
 pcall(function() require "json" end)
-local uiGradient = require "uiGradient"
+local uiGradient = require "src/gradient_mesh"
 
 
 local function load( filename )
@@ -84,7 +84,7 @@ function loadGraph()
 	----------------------------------------------------------------------
 	--sample
 	----------------------------------------------------------------------
-	local path="Sources/Images/Landscape/"
+	local path="assets/images/landscapes/"
 	local g = uiGradient.new()
 	local conf={
 			color = datos[n].colors,		-- colors are like vertex: minimum 2 colors 
@@ -140,7 +140,7 @@ function loadGraph()
 		t={}; for j=1, #d do t[#t+1] = d[j]..tostring(j==#d and "" or " --> ") end
 		return table.concat(t)
 	end
-	local path="Sources/Fonts/"
+	local path="assets/fonts/"
 	--name info
 	local font=TTFont.new(path.."Roboto-Regular.ttf",20)
 	local textName = TextField.new(font,datos[n].name)

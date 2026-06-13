@@ -6,36 +6,36 @@
  </properties>
  <folder name="Sources">
   <folder name="Fonts">
-   <file source="Sources/Fonts/Roboto-Regular.ttf"/>
+   <file source="assets/fonts/Roboto-Regular.ttf"/>
   </folder>
   <folder name="Images">
    <folder name="Faces">
-    <file source="Sources/Images/Faces/peruvianModel_Maju_001.png"/>
-    <file source="Sources/Images/Faces/ariel-lustre-208615.png"/>
+    <file source="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
+    <file source="assets/images/legacy-faces/ariel-lustre-208615.png"/>
    </folder>
    <folder name="Landscape">
-    <file source="Sources/Images/Landscapes/pexels-photo-89432.png"/>
-    <file source="Sources/Images/Landscapes/jeremiah-berman-282409.png"/>
+    <file source="assets/images/landscapes/pexels-photo-89432.png"/>
+    <file source="assets/images/landscapes/jeremiah-berman-282409.png"/>
    </folder>
    <folder name="Splash">
-    <file source="Sources/Images/Splash/splashWhite_009.png"/>
-    <file source="Sources/Images/Splash/splashWhite_008.png"/>
-    <file source="Sources/Images/Splash/splashWhite_007.png"/>
-    <file source="Sources/Images/Splash/splashWhite_006.png"/>
-    <file source="Sources/Images/Splash/splashWhite_005.png"/>
-    <file source="Sources/Images/Splash/splashWhite_004.png"/>
-    <file source="Sources/Images/Splash/splashWhite_003.png"/>
-    <file source="Sources/Images/Splash/splashWhite_002.png"/>
-    <file source="Sources/Images/Splash/splashWhite_001.png"/>
+    <file source="assets/images/splashes/splashWhite_009.png"/>
+    <file source="assets/images/splashes/splashWhite_008.png"/>
+    <file source="assets/images/splashes/splashWhite_007.png"/>
+    <file source="assets/images/splashes/splashWhite_006.png"/>
+    <file source="assets/images/splashes/splashWhite_005.png"/>
+    <file source="assets/images/splashes/splashWhite_004.png"/>
+    <file source="assets/images/splashes/splashWhite_003.png"/>
+    <file source="assets/images/splashes/splashWhite_002.png"/>
+    <file source="assets/images/splashes/splashWhite_001.png"/>
    </folder>
   </folder>
  </folder>
  <folder name="Samples">
-  <file excludeFromExecution="1" source="Samples/Sample001.lua"/>
-  <file excludeFromExecution="1" source="Samples/Sample002.lua"/>
-  <file excludeFromExecution="1" source="Samples/Sample003.lua"/>
-  <file excludeFromExecution="1" source="Samples/Sample004.lua"/>
+  <file excludeFromExecution="1" source="examples/gradient_overlay.lua"/>
+  <file excludeFromExecution="1" source="examples/splash_texture_masks.lua"/>
+  <file excludeFromExecution="1" source="examples/radial_shapes.lua"/>
+  <file excludeFromExecution="1" source="examples/legacy_face_texture_mask.lua"/>
  </folder>
- <file source="uiGradient.lua"/>
+ <file source="src/gradient_mesh.lua"/>
  <file source="main.lua"/>
 </project>

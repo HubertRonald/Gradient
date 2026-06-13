@@ -28,8 +28,8 @@ _HD,_WD = _WD,_HD
 ----------------------------------------
 
 
-local uiGradient = require "uiGradient"
-local path="Sources/Images/Splash/"
+local uiGradient = require "src/gradient_mesh"
+local path="assets/images/splashes/"
 
 
 local s=.4
