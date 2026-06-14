@@ -3,7 +3,7 @@
 <p align="left">
   <img src="https://img.shields.io/badge/Lua-5.x-2C2D72?logo=lua&logoColor=white" alt="Lua">
   <img src="https://img.shields.io/badge/Gideros-Compatible-orange" alt="Gideros Compatible">
-  <img src="https://img.shields.io/badge/json-5E5C5C?style=flat-square&logo=json&logoColor=white) alt="Json">
+  <img src="https://img.shields.io/badge/json-5E5C5C?style=flat-square&logo=json&logoColor=white" alt="Json">
   <img src="https://img.shields.io/github/license/HubertRonald/Gradient" alt="License">
   <a href="https://github.com/HubertRonald/Gradient/issues" target="_blank">
       <img src="https://img.shields.io/badge/issues-open-green?style=flat-square&logo=github" alt="GitHub issues" />
