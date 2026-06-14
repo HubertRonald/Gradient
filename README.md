@@ -343,9 +343,9 @@ $$
 
 Where:
 
-* (t_w), (t_h) are the texture width and height;
-* (d_x), (d_y) are the visible texture dimensions after scaling;
-* (a_x), (a_y) are the texture anchor values.
+* $t_w$, $t_h$ are the texture width and height;
+* $d_x$, $d_y$ are the visible texture dimensions after scaling;
+* $a_x$, $a_y$ are the texture anchor values.
 
 For polygon meshes, the texture coordinates follow the same radial idea as the geometric vertices, which is what allows image textures to be clipped, rotated, and tinted by polygon geometry.
 
