@@ -181,7 +181,6 @@ The examples below are grouped by rendering feature. Each screenshot is generate
 
 
 
-
 ---
 
 ## Example map
@@ -492,6 +491,8 @@ stage:addChild(polygon)
 | `jaggedFree`   | Adds a soft transparent ring to reduce jagged edges.            |
 | `colorOn`      | Enables or disables mesh color assignment.                      |
 
+> When `hole = true`, the radial mesh starts from an inner radius instead of the center.
+The center is not filled by mesh triangles, so the hole remains transparent and shows whatever is behind it.
 ---
 
 ## Project structure
