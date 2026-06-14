@@ -4,16 +4,16 @@
   <img src="https://img.shields.io/badge/Lua-5.x-2C2D72?logo=lua&logoColor=white" alt="Lua">
   <img src="https://img.shields.io/badge/Gideros-Compatible-orange" alt="Gideros Compatible">
   <img src="https://img.shields.io/badge/json-5E5C5C?style=flat-square&logo=json&logoColor=white" alt="Json">
-  <img src="https://img.shields.io/github/license/HubertRonald/Gradient" alt="License">
-  <a href="https://github.com/HubertRonald/Gradient/issues" target="_blank">
+  <img src="https://img.shields.io/github/license/HubertRonald/GradientMesh" alt="License">
+  <a href="https://github.com/HubertRonald/GradientMesh/issues" target="_blank">
       <img src="https://img.shields.io/badge/issues-open-green?style=flat-square&logo=github" alt="GitHub issues" />
   </a>
-  <a href="https://github.com/HubertRonald/Gradient/pulls" target="_blank">
+  <a href="https://github.com/HubertRonald/GradientMesh/pulls" target="_blank">
       <img src="https://img.shields.io/badge/pull%20requests-open-yellow?style=flat-square&logo=github" alt="GitHub pull requests" />
   </a>
-  <img src="https://img.shields.io/github/last-commit/HubertRonald/Gradient?style=flat-square" />
-  <img src="https://img.shields.io/github/commit-activity/t/HubertRonald/Gradient?style=flat-square&color=dodgerblue" />
-  <img src="https://img.shields.io/github/stars/HubertRonald/Gradient?style=social" alt="GitHub stars">
+  <img src="https://img.shields.io/github/last-commit/HubertRonald/GradientMesh?style=flat-square" />
+  <img src="https://img.shields.io/github/commit-activity/t/HubertRonald/GradientMesh?style=flat-square&color=dodgerblue" />
+  <img src="https://img.shields.io/github/stars/HubertRonald/GradientMesh?style=social" alt="GitHub stars">
   
 </p>
 
@@ -549,7 +549,7 @@ Instead of relying on static gradient images or remote palette services, **Gider
 
 * **Hubert Ronald** - *Initial work* - [HubertRonald](https://github.com/HubertRonald)
 
-See also the list of [contributors](https://github.com/HubertRonald/Gradient/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/HubertRonald/GradientMesh/contributors) who participated in this project.
 
 ---
 
