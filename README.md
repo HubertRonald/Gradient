@@ -510,27 +510,17 @@ Gradient/
 
 ---
 
-## Suggested visual cleanup
+## Rendered documentation assets
 
-To make the repository feel more modern and portfolio-ready:
+The README focuses on screenshots generated from dedicated example scripts.
 
-1. Keep generated images clean, without text overlays.
-2. Use descriptive file names.
-3. Present gradient names in the README, not inside the image.
-4. Prefer polished abstract visuals over model/face examples unless the source images are licensed, high quality, and visually consistent.
-5. Add one hero image at the top once the visual identity is stable.
-
-Recommended result names:
-
-```txt
-gradient-mesh-regular-polygons.png
-gradient-mesh-cosmic-fusion.png
-gradient-mesh-firewatch.png
-gradient-mesh-mango.png
-gradient-mesh-royal-blue.png
-gradient-mesh-big-rainbow.png
-gradient-mesh-big-fog.png
-```
+| Image | Generated from |
+| --- | --- |
+| `docs/images/gradient-overlay-landscape.png` | `examples/gradient_overlay.lua` |
+| `docs/images/texture-mask-rotated-mesh.png` | `examples/texture_mask_rotated_mesh.lua` |
+| `docs/images/hexagon-portrait-texture-mask.png` | `examples/hexagon_portrait_texture_mask.lua` |
+| `docs/images/radial-shapes-hole-deform.png` | `examples/radial_shapes_hole_deform.lua` |
+| `docs/images/radial-gradient-splash-masks.png` | `examples/radial_gradient_splash_masks.lua` |
 
 ---
 
