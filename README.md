@@ -503,13 +503,13 @@ The center is not filled by mesh triangles, so the hole remains transparent and 
 ## Project structure
 
 ```txt
-Gradient/
-├── docs/images/          # Rendered examples and visual outputs
-├── Samples/          # Gideros sample scenes
-├── Sources/          # Images, fonts, and source assets
-├── main.lua          # Sample selector
-├── GradientMesh.lua    # Core gradient mesh utility
-├── Gradient.gproj    # Gideros project file
+GradientMesh/
+├── docs/images/            # Rendered examples and visual outputs
+├── Samples/                # Gideros sample scenes
+├── Sources/                # Images, fonts, and source assets
+├── main.lua                # Sample selector
+├── GradientMesh.lua        # Core gradient mesh utility
+├── GradientMesh.gproj      # Gideros project file
 ├── LICENSE
 └── README.md
 ```
