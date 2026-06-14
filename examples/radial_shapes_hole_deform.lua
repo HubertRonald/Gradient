@@ -13,7 +13,6 @@
 print("\n")
 
 application:setOrientation(Application.LANDSCAPE_LEFT)
-application:setBackgroundColor(0xf4f6f8)
 
 --------------------------------------------------------------------------------
 -- Fixed logical canvas for documentation screenshots
@@ -31,6 +30,29 @@ Wdx = application:getLogicalTranslateX() / application:getLogicalScaleX()
 Hdy = application:getLogicalTranslateY() / application:getLogicalScaleY()
 
 print("Logical size:", _W, _H)
+
+--------------------------------------------------------------------------------
+-- Solid documentation background
+--
+-- This makes donut holes and transparent antialiasing rings resolve against
+-- the same color used by application:setBackgroundColor.
+--------------------------------------------------------------------------------
+
+local BACKGROUND_COLOR = 0xf4f6f8
+
+application:setBackgroundColor(BACKGROUND_COLOR)
+
+local background = Shape.new()
+background:setFillStyle(Shape.SOLID, BACKGROUND_COLOR, 1)
+background:beginPath()
+background:moveTo(0, 0)
+background:lineTo(_W, 0)
+background:lineTo(_W, _H)
+background:lineTo(0, _H)
+background:closePath()
+background:endPath()
+stage:addChild(background)
+
 
 --------------------------------------------------------------------------------
 -- Dependencies
