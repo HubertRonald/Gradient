@@ -101,6 +101,11 @@ The examples below are grouped by rendering feature. Each screenshot is generate
   </tbody>
 </table>
 
+
+
+> **Note:** The `gradient_overlay` example originally supported loading palette data from remote gradient collections. Since some older palette sources may no longer be available, the example is documented as a procedural mesh overlay and can be adapted to use local or fallback palettes.
+
+
 ### Textures Exanples
 
 <table>
@@ -534,7 +539,9 @@ The README focuses on screenshots generated from dedicated example scripts.
 
 ## Inspiration
 
-This project was inspired by gradient palette collections such as [GradientMeshs](https://GradientMeshs.com/), but implemented as procedural mesh rendering for Gideros.
+This project was inspired by early gradient palette collections such as GradientMeshs and other visual gradient galleries from the 2010s, but implements the idea as procedural mesh rendering for Gideros.
+
+Instead of relying on static gradient images or remote palette services, **Gideros Gradient Mesh** builds vertices, colors, alpha values, indices, and optional texture coordinates directly in Lua.
 
 ---
 
