@@ -11,8 +11,8 @@
   <a href="https://github.com/HubertRonald/GradientMesh/pulls" target="_blank">
       <img src="https://img.shields.io/badge/pull%20requests-open-yellow?style=flat-square&logo=github" alt="GitHub pull requests" />
   </a>
-  <img src="https://img.shields.io/github/last-commit/HubertRonald/GradientMesh?style=flat-square" />
-  <img src="https://img.shields.io/github/commit-activity/t/HubertRonald/GradientMesh?style=flat-square&color=dodgerblue" />
+  <img src="https://img.shields.io/github/last-commit/HubertRonald/GradientMesh?style=flat-square&logo=github" />
+  <img src="https://img.shields.io/github/commit-activity/t/HubertRonald/GradientMesh?style=flat-square&color=dodgerblue&logo=github" />
   <img src="https://img.shields.io/github/stars/HubertRonald/GradientMesh?style=social" alt="GitHub stars">
   
 </p>
