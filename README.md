@@ -106,7 +106,7 @@ The examples below are grouped by rendering feature. Each screenshot is generate
 > **Note:** The `gradient_overlay` example originally supported loading palette data from remote gradient collections. Since some older palette sources may no longer be available, the example is documented as a procedural mesh overlay and can be adapted to use local or fallback palettes.
 
 
-### Textures Exanples
+### Textures Examples
 
 <table>
   <thead>
