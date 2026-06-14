@@ -232,7 +232,7 @@ $$
 0 \leq t \leq 1
 $$
 
-For a triangle, this idea generalizes through barycentric interpolation. If a point inside a triangle has barycentric weights (\lambda_1), (\lambda_2), and (\lambda_3), then:
+For a triangle, this idea generalizes through barycentric interpolation. If a point inside a triangle has barycentric weights $\lambda_1$, $\lambda_2$, and $\lambda_3$, then:
 
 $$
 \lambda_1 + \lambda_2 + \lambda_3 = 1
