@@ -1,5 +1,5 @@
 <project>
- <properties encryptAssets="0" orientation="1" logicalHeight="480" html5_crash="" html5_fbinstant="0" version_code="1" osx_bundle="com.yourdomain." windowWidth="0" ios_bundle="com.yourdomain." vsync="0" mainluaOnly="0" autorotation="0" app_icon="" mouseToTouch="1" html5_fbload="100" html5_pack="0" html5_symbols="0" architecture="0" android_template="0" touchToMouse="1" splash_h_image="" retinaDisplay="0" winrt_package="com.yourdomain.yourapp" logicalWidth="320" windowHeight="0" build_number="1" app_name="" exportMode="0" mouseTouchOrder="0" packageName="com.yourdomain.yourapp" version="1.0" winrt_org="GiderosMobile" osx_org="GiderosMobile" iosDevice="0" win_domain="giderosmobile.com" html5_wasm="0" osx_installerId="" disableSplash="0" html5_host="" win_org="GiderosMobile" osx_signingId="" osx_category="5" tv_icon="" splash_v_image="" splashScaleMode="0" osx_domain="giderosmobile.com" encryptCode="0" scaleMode="0" html5_mem="256" fps="60" backgroundColor="#ffffff">
+ <properties vsync="0" win_org="GiderosMobile" fps="60" ios_bundle="com.yourdomain." autorotation="0" version_code="1" html5_crash="" mouseTouchOrder="0" touchToMouse="1" build_number="1" packageName="com.yourdomain.yourapp" iosDevice="0" mouseToTouch="1" html5_wasm="0" html5_symbols="0" tv_icon="" splash_v_image="" osx_signingId="" mainluaOnly="0" splash_h_image="" logicalHeight="480" osx_bundle="com.yourdomain." backgroundColor="#ffffff" osx_installerId="" html5_fbload="100" app_name="" windowWidth="0" html5_fbinstant="0" splashScaleMode="0" html5_mem="256" windowHeight="0" winrt_package="com.yourdomain.yourapp" html5_pack="0" scaleMode="0" disableSplash="0" osx_domain="giderosmobile.com" html5_host="" encryptCode="0" logicalWidth="320" retinaDisplay="0" win_domain="giderosmobile.com" version="1.0" encryptAssets="0" osx_category="5" winrt_org="GiderosMobile" android_template="0" app_icon="" osx_org="GiderosMobile" orientation="1" architecture="0" exportMode="0">
   <imageScales/>
   <plugins/>
   <exports/>
@@ -31,12 +31,36 @@
   </folder>
  </folder>
  <folder name="examples">
-  <file source="examples/gradient_overlay.lua" excludeFromExecution="1"/>
-  <file source="examples/legacy_face_texture_mask.lua" excludeFromExecution="1"/>
-  <file source="examples/radial_shapes.lua" excludeFromExecution="1"/>
-  <file source="examples/splash_texture_masks.lua" excludeFromExecution="1"/>
-  <file source="examples/texture_mask_rotated_mesh.lua" excludeFromExecution="1"/>
+  <file excludeFromExecution="1" source="examples/gradient_overlay.lua"/>
+  <file excludeFromExecution="1" source="examples/hexagon_portrait_texture_mask.lua"/>
+  <file excludeFromExecution="1" source="examples/radial_gradient_splash_masks.lua"/>
+  <file excludeFromExecution="1" source="examples/radial_shapes_hole_deform.lua"/>
+  <file excludeFromExecution="1" source="examples/texture_mask_rotated_mesh.lua"/>
  </folder>
+ <folder name="fonts">
+  <file name="assets/fonts/Roboto-Regular.ttf"/>
+ </folder>
+ <folder name="images">
+  <folder name="landscapes">
+   <file name="assets/images/landscapes/jeremiah-berman-282409.png"/>
+   <file name="assets/images/landscapes/pexels-photo-89432.png"/>
+  </folder>
+  <folder name="legacy-faces">
+   <file name="assets/images/legacy-faces/ariel-lustre-208615.png"/>
+   <file name="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
+  </folder>
+  <folder name="splashes">
+   <file name="assets/images/splashes/splashWhite.psd"/>
+   <file name="assets/images/splashes/splashWhite_001.png"/>
+   <file name="assets/images/splashes/splashWhite_002.png"/>
+   <file name="assets/images/splashes/splashWhite_003.png"/>
+   <file name="assets/images/splashes/splashWhite_004.png"/>
+   <file name="assets/images/splashes/splashWhite_005.png"/>
+   <file name="assets/images/splashes/splashWhite_006.png"/>
+   <file name="assets/images/splashes/splashWhite_007.png"/>
+   <file name="assets/images/splashes/splashWhite_008.png"/>
+   <file name="assets/images/splashes/splashWhite_009.png"/>
+  </folder>
  </folder>
  <folder name="src">
   <file source="src/gradient_mesh.lua"/>

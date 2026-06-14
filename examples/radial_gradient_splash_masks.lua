@@ -136,14 +136,15 @@ end
 --------------------------------------------------------------------------------
 
 -- Subtle rectangular splash, useful as a UI accent / brush stroke.
-addRectangleSplash({
-	file = "splashWhite_001.png",
-	color = PALETTES.mist,
-	way = "lr",
-	position = {centerX - gapX, centerY - gapY},
-	scale = 0.38,
-	heightRatio = 0.50
-})
+
+--ddRectangleSplash({
+--	file = "splashWhite_001.png",
+--	color = PALETTES.mist,
+--	way = "lr",
+--	position = {centerX - gapX, centerY - gapY},
+--	scale = 0.38,
+--	heightRatio = 0.50
+--)
 
 -- Upper middle splash.
 addRadialSplash({
@@ -151,7 +152,8 @@ addRadialSplash({
 	color = PALETTES.ocean,
 	radius = radius * 0.82,
 	way = "co",
-	position = {centerX, centerY - gapY * 0.88}
+--	position = {centerX, centerY - gapY * 0.88}
+	position = {centerX - gapX * 0.72, centerY - gapY}
 })
 
 -- Upper right splash.
@@ -178,7 +180,7 @@ addRadialSplash({
 	color = PALETTES.sunset,
 	radius = radius * 0.98,
 	way = "co",
-	position = {centerX + gapX * 0.22, centerY + gapY * 0.90}
+	position = {centerX + gapX * 0.22, centerY}
 })
 
 -- Lower right splash.

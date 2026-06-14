@@ -6,10 +6,8 @@
 --   Logical size: 320 x 480
 --   Orientation: Landscape left
 --
--- This example demonstrates radial gradient geometry:
---   1. deformed radial ellipse
---   2. circular radial gradient
---   3. radial gradient with inner hole / donut
+-- This example uses a fixed 480 x 320 landscape canvas so the exported
+-- documentation screenshot is stable and all three shapes remain visible.
 --------------------------------------------------------------------------------
 
 print("\n")
@@ -18,19 +16,21 @@ application:setOrientation(Application.LANDSCAPE_LEFT)
 application:setBackgroundColor(0xf4f6f8)
 
 --------------------------------------------------------------------------------
--- Logical dimensions
+-- Fixed logical canvas for documentation screenshots
 --------------------------------------------------------------------------------
 
-local contentW = application:getContentWidth()
-local contentH = application:getContentHeight()
+local LOGICAL_W = 480
+local LOGICAL_H = 320
 
-application:setLogicalDimensions(contentW, contentH)
+application:setLogicalDimensions(LOGICAL_W, LOGICAL_H)
 
 _W = application:getLogicalWidth()
 _H = application:getLogicalHeight()
 
 Wdx = application:getLogicalTranslateX() / application:getLogicalScaleX()
 Hdy = application:getLogicalTranslateY() / application:getLogicalScaleY()
+
+print("Logical size:", _W, _H)
 
 --------------------------------------------------------------------------------
 -- Dependencies
@@ -39,27 +39,75 @@ Hdy = application:getLogicalTranslateY() / application:getLogicalScaleY()
 local GradientMesh = require "src/gradient_mesh"
 
 --------------------------------------------------------------------------------
--- Palettes
+-- Helpers
+--
+-- gradient_mesh.lua mutates color/alpha arrays internally when using
+-- radial polygons, jaggedFree, and "oc" direction.
+-- Therefore each mesh must receive fresh array copies.
 --------------------------------------------------------------------------------
 
+local function cloneArray(source)
+	local copy = {}
+
+	for i = 1, #source do
+		copy[i] = source[i]
+	end
+
+	return copy
+end
+
+--------------------------------------------------------------------------------
+-- Palettes
+--
+-- Cool / geometric / technical.
+-- The outer colors are intentionally light to avoid dark antialias borders.
+--------------------------------------------------------------------------------
+
+
 local PALETTES = {
-	ellipse = {0xe0f2fe, 0x93c5fd, 0x6366f1, 0x334155},
-	circle = {0xfffbeb, 0xfde68a, 0xf9a8d4, 0x9333ea},
-	donut = {0xecfeff, 0x99f6e4, 0x38bdf8, 0x1e3a8a}
+	ellipse = {
+		0x334155, -- soft slate center 
+		0x6366f1, -- indigo 
+		0x93c5fd, -- blue 
+		0xe0f2fe -- pale blue edge
+	},
+
+	circle = {
+		0x1e3a8a, -- deep blue center
+		0x3b82f6, -- blue
+		0x7dd3fc, -- sky
+		0xf0f9ff -- pale sky edge
+	},
+
+	donut = {
+		0x0f766e, -- teal center/ring
+		0x14b8a6, -- teal
+		0x99f6e4, -- mint
+		0xecfeff -- pale cyan edge
+	}
 }
 
-local ALPHA_SOLID = {1.00, 0.98, 0.96, 0.92}
+local ALPHA_SOLID = {
+	1.00,
+	1.00,
+	0.97,
+	0.90
+}
 
 --------------------------------------------------------------------------------
 -- Layout
+--
+-- Explicit positions for a 480 x 320 logical canvas.
+-- The ellipse is wider than the circle because of scalePolygon,
+-- so it needs more horizontal room.
 --------------------------------------------------------------------------------
 
-local centerX = _W / 2
-local centerY = _H / 2
+local centerY = 160
+local radius = 56
 
-local base = math.min(_W, _H)
-local radius = math.min(base * 0.25, 150)
-local spacing = radius * 1.48
+local ellipsePosition = {110, centerY}
+local circlePosition  = {255, centerY}
+local donutPosition   = {380, centerY}
 
 --------------------------------------------------------------------------------
 -- Helpers
@@ -72,9 +120,12 @@ local function addRadialShape(conf)
 		edges = conf.edges or 96,
 		radius = conf.radius or radius,
 
+		-- Use "co" to keep the palette order stable:
+		-- first color near the center, last color near the outer edge.
 		way = conf.way or "co",
-		color = conf.color,
-		alpha = conf.alpha or ALPHA_SOLID,
+
+		color = cloneArray(conf.color),
+		alpha = cloneArray(conf.alpha or ALPHA_SOLID),
 
 		position = conf.position,
 		scalePolygon = conf.scalePolygon or {1, 1},
@@ -97,35 +148,38 @@ end
 -- Examples
 --------------------------------------------------------------------------------
 
--- Deformed radial ellipse.
+-- 1. Deformed radial ellipse.
 addRadialShape({
 	edges = 96,
-	radius = radius * 1.02,
-	way = "oc",
+	radius = radius,
+	way = "co",
 	color = PALETTES.ellipse,
-	position = {centerX - spacing, centerY},
-	scalePolygon = {1.35, 0.82},
+	alpha = ALPHA_SOLID,
+	position = ellipsePosition,
+	scalePolygon = {1.25, 0.72},
 	hole = false
 })
 
--- Clean circular radial gradient.
+-- 2. Clean circular radial gradient.
 addRadialShape({
 	edges = 120,
 	radius = radius,
 	way = "co",
 	color = PALETTES.circle,
-	position = {centerX, centerY},
+	alpha = ALPHA_SOLID,
+	position = circlePosition,
 	scalePolygon = {1, 1},
 	hole = false
 })
 
--- Donut / inner hole radial gradient.
+-- 3. Donut / inner hole radial gradient.
 addRadialShape({
 	edges = 120,
 	radius = radius,
-	way = "oc",
+	way = "co",
 	color = PALETTES.donut,
-	position = {centerX + spacing, centerY},
+	alpha = ALPHA_SOLID,
+	position = donutPosition,
 	scalePolygon = {1, 1},
 	hole = true,
 	rIn = radius * 0.42
@@ -134,15 +188,20 @@ addRadialShape({
 --------------------------------------------------------------------------------
 -- Tuning
 --
--- More geometric / polygonal look:
---   edges = 6, 8, 12
+-- Bigger shapes:
+--   local radius = 62
 --
--- Smoother circular look:
---   edges = 96, 120, 160
+-- Smaller shapes:
+--   local radius = 50
 --
--- Larger hole:
---   rIn = radius * 0.55
+-- Move shapes closer:
+--   ellipsePosition = {130, centerY}
+--   circlePosition  = {240, centerY}
+--   donutPosition   = {350, centerY}
 --
--- Smaller hole:
---   rIn = radius * 0.30
+-- Softer look:
+--   ALPHA_SOLID = {1.00, 0.96, 0.92, 0.86}
+--
+-- Stronger look:
+--   ALPHA_SOLID = {1.00, 1.00, 0.98, 0.96}
 --------------------------------------------------------------------------------
