@@ -3,8 +3,18 @@
 <p align="left">
   <img src="https://img.shields.io/badge/Lua-5.x-2C2D72?logo=lua&logoColor=white" alt="Lua">
   <img src="https://img.shields.io/badge/Gideros-Compatible-orange" alt="Gideros Compatible">
+  <img src="https://img.shields.io/badge/json-5E5C5C?style=flat-square&logo=json&logoColor=white) alt="Json">
   <img src="https://img.shields.io/github/license/HubertRonald/Gradient" alt="License">
+  <a href="https://github.com/HubertRonald/Gradient/issues" target="_blank">
+      <img src="https://img.shields.io/badge/issues-open-green?style=flat-square&logo=github" alt="GitHub issues" />
+  </a>
+  <a href="https://github.com/HubertRonald/Gradient/pulls" target="_blank">
+      <img src="https://img.shields.io/badge/pull%20requests-open-yellow?style=flat-square&logo=github" alt="GitHub pull requests" />
+  </a>
+  <img src="https://img.shields.io/github/last-commit/HubertRonald/Gradient?style=flat-square" />
+  <img src="https://img.shields.io/github/commit-activity/t/HubertRonald/Gradient?style=flat-square&color=dodgerblue" />
   <img src="https://img.shields.io/github/stars/HubertRonald/Gradient?style=social" alt="GitHub stars">
+  
 </p>
 
 
@@ -23,7 +33,7 @@
 
 **Gideros Gradient Mesh** is a small Lua utility for creating procedural gradients using the `Mesh` API in [Gideros](https://github.com/gideros/gideros).
 
-It was originally built as a lightweight visual experiment inspired by gradient palettes such as uiGradients, but the core idea is more technical: instead of drawing a flat bitmap gradient, the library builds a mesh, assigns colors to vertices, and lets the renderer interpolate those colors across triangles.
+It was originally built as a lightweight visual experiment inspired by gradient palettes such as GradientMeshs, but the core idea is more technical: instead of drawing a flat bitmap gradient, the library builds a mesh, assigns colors to vertices, and lets the renderer interpolate those colors across triangles.
 
 The result is a compact, reusable snippet for:
 
@@ -166,12 +176,12 @@ require "examples/radial_gradient_splash_masks"
 
 ---
 
-## Why mesh-based gradients?
+## Features
 
 A usual 2D gradient can be treated as a color interpolation problem.
-This library approaches the problem geometrically: it creates vertices, assigns a color to each vertex, and builds triangles between them.
+**Gideros Gradient Mesh** approaches that problem geometrically: it creates vertices, assigns colors to those vertices, and lets the renderer interpolate color values across triangles.
 
-For a rectangular gradient, the mesh is built as a grid:
+For a rectangular gradient, the mesh is built as a regular grid:
 
 ```txt
 v1 ----- v2 ----- v3
@@ -183,28 +193,58 @@ v4 ----- v5 ----- v6
 v7 ----- v8 ----- v9
 ```
 
-Each cell is split into two triangles:
+Each grid cell is split into two triangles:
 
 ```txt
 (v1, v2, v5)
 (v1, v5, v4)
 ```
 
-Inside each triangle, the GPU interpolates the vertex colors, which creates the gradient.
+If a rectangle has width $w$, height $h$, and anchor point $(a_x, a_y)$, a vertex at normalized grid coordinates $(u_i, v_j)$ can be written as:
 
-Conceptually, for two colors `C0` and `C1`, a linear gradient can be described as:
+$$
+P_{ij} =
+\left(
+(u_i - a_x)w,
+(v_j - a_y)h
+\right)
+$$
 
-```txt
-C(t) = (1 - t)C0 + tC1
-```
+For each cell, the two triangles can be represented as:
+
+$$
+T_1 = (P_{ij}, P_{i+1,j}, P_{i+1,j+1})
+$$
+
+$$
+T_2 = (P_{ij}, P_{i+1,j+1}, P_{i,j+1})
+$$
+
+Inside a triangle, the renderer interpolates vertex colors. Conceptually, a simple two-color gradient can be written as:
+
+$$
+C(t) = (1 - t)C_0 + tC_1
+$$
 
 Where:
 
-```txt
-0 <= t <= 1
-```
+$$
+0 \leq t \leq 1
+$$
 
-For multiple color stops, the same idea is applied piecewise between neighboring colors.
+For a triangle, this idea generalizes through barycentric interpolation. If a point inside a triangle has barycentric weights (\lambda_1), (\lambda_2), and (\lambda_3), then:
+
+$$
+\lambda_1 + \lambda_2 + \lambda_3 = 1
+$$
+
+and the interpolated color is:
+
+$$
+C(P) = \lambda_1 C_1 + \lambda_2 C_2 + \lambda_3 C_3
+$$
+
+That is the small trick behind the visual result: the Lua code builds the geometry, while the rendering pipeline does the smooth color blending.
 
 ---
 
@@ -212,56 +252,112 @@ For multiple color stops, the same idea is applied piecewise between neighboring
 
 For circular and polygon-based gradients, the library creates rings of vertices around a center point.
 
-A vertex on a ring can be described as:
+A radial vertex can be described as:
 
-```txt
-x = cx + sx * r * p * cos(theta)
-y = cy + sy * r * p * sin(theta)
-```
+$$
+P_{ij} =
+\left(
+c_x + s_x,p^x_j,r\cos(\theta_i),
+c_y + s_y,p^y_j,r\sin(\theta_i)
+\right)
+$$
 
 Where:
 
-* `cx`, `cy` are the center coordinates;
-* `sx`, `sy` are scale factors;
-* `r` is the base radius;
-* `p` is the normalized radius percentage for the current color stop;
-* `theta` is the vertex angle.
+* $(c_x, c_y)$ is the center point;
+* $s_x$ and $s_y$ are scale factors from `scalePolygon`;
+* $r$ is the base radius;
+* $p^x_j$ and $p^y_j$ are normalized radial percentages for the current color stop;
+* $\theta_i$ is the angular position of the current polygon vertex.
 
-For a regular polygon with `n` edges, each angle advances around the shape:
+For a regular polygon with $n$ edges, the angle of each vertex is:
 
-```txt
-theta_i = rotation + 2πi / n
-```
+$$
+\theta_i =
+\frac{\pi}{2}
++
+\frac{(2i - 1)\pi}{n}
++
+\rho
+$$
 
-The library then connects the center and the rings using triangle indices.
-When antialiasing mode is enabled, it adds an extra outer ring with lower alpha to soften jagged edges.
+Where $\rho$ is the mesh rotation angle coming from `rotationMesh`.
 
----
+This is why the same function can produce circles, ellipses, regular polygons, rotated polygons, and radial texture masks: changing $n$, $r$, $s_x$, $s_y$, and $\rho$ changes the generated mesh.
 
-## Features
+### Inner holes
 
-* Rectangle gradients using mesh grids.
-* Horizontal and vertical directions:
+When `hole = true`, the radial mesh starts from an inner radius instead of the center. If $r_{\text{in}}$ is the inner radius and $r$ is the outer radius, the normalized inner position is:
 
-  * `tb`: top to bottom;
-  * `bt`: bottom to top;
-  * `lr`: left to right;
-  * `rl`: right to left.
-* Radial gradients for circles and regular polygons.
-* Polygon deformation through scale factors.
-* Optional inner hole for ring/donut-like shapes.
-* Optional texture support.
-* Optional antialiasing strategy through extra transparent mesh rings.
-* Small, dependency-light Lua implementation.
+$$
+p_{\text{in}} = \frac{r_{\text{in}}}{r}
+$$
+
+For multiple radial color stops, the intermediate percentages can be distributed between the inner and outer radius:
+
+$$
+p_j =
+\frac{r_{\text{in}}}{r}
++
+j \cdot
+\frac{r - r_{\text{in}}}{m r}
+$$
+
+Where $m$ is the number of color stops.
+
+This creates donut-like gradients and ring-shaped meshes while keeping the same polygon construction logic.
+
+### Antialiasing ring
+
+When `jaggedFree = true`, the mesh adds a thin outer fade ring. Conceptually, it creates one ring close to the edge:
+
+$$
+p_{\text{fade}} = \frac{r - \delta}{r}
+$$
+
+and another one at the final boundary:
+
+$$
+p_{\text{outer}} = 1
+$$
+
+Then the outer alpha fades toward zero:
+
+$$
+\alpha_{\text{outer}} = 0
+$$
+
+This soft transparent ring helps reduce jagged polygon edges.
+
+### Texture coordinates
+
+When a texture is attached, the mesh also generates texture coordinates. For a rectangular mesh, texture coordinates follow the same normalized grid idea:
+
+$$
+U_{ij} = d_x u_i + a_x(t_w - d_x)
+$$
+
+$$
+V_{ij} = d_y v_j + a_y(t_h - d_y)
+$$
+
+Where:
+
+* (t_w), (t_h) are the texture width and height;
+* (d_x), (d_y) are the visible texture dimensions after scaling;
+* (a_x), (a_y) are the texture anchor values.
+
+For polygon meshes, the texture coordinates follow the same radial idea as the geometric vertices, which is what allows image textures to be clipped, rotated, and tinted by polygon geometry.
+
 
 ---
 
 ## Installation
 
-Copy `uiGradient.lua` into your Gideros project and require it from your scene or sample file:
+Copy `src/gradient_mesh.lua` into your Gideros project and require it from your scene or example file:
 
 ```lua
-local uiGradient = require "src/gradient_mesh"
+local GradientMesh = require "src/gradient_mesh"
 ```
 
 ---
@@ -269,9 +365,9 @@ local uiGradient = require "src/gradient_mesh"
 ## Quick start
 
 ```lua
-local uiGradient = require "src/gradient_mesh"
+local GradientMesh = require "src/gradient_mesh"
 
-local gradient = uiGradient.new()
+local gradient = GradientMesh.new()
 
 gradient:rectangle({
     color = {
@@ -294,9 +390,9 @@ stage:addChild(gradient)
 ## Radial example
 
 ```lua
-local uiGradient = require "src/gradient_mesh"
+local GradientMesh = require "src/gradient_mesh"
 
-local glow = uiGradient.new()
+local glow = GradientMesh.new()
 
 glow:circle({
     radius = 180,
@@ -319,9 +415,9 @@ stage:addChild(glow)
 ## Regular polygon example
 
 ```lua
-local uiGradient = require "src/gradient_mesh"
+local GradientMesh = require "src/gradient_mesh"
 
-local polygon = uiGradient.new()
+local polygon = GradientMesh.new()
 
 polygon:regularPolygon({
     edges = 6,
@@ -372,7 +468,7 @@ Gradient/
 ├── Samples/          # Gideros sample scenes
 ├── Sources/          # Images, fonts, and source assets
 ├── main.lua          # Sample selector
-├── uiGradient.lua    # Core gradient mesh utility
+├── GradientMesh.lua    # Core gradient mesh utility
 ├── Gradient.gproj    # Gideros project file
 ├── LICENSE
 └── README.md
@@ -413,7 +509,7 @@ gradient-mesh-big-fog.png
 
 ## Inspiration
 
-This project was inspired by gradient palette collections such as [uiGradients](https://uigradients.com/), but implemented as procedural mesh rendering for Gideros.
+This project was inspired by gradient palette collections such as [GradientMeshs](https://GradientMeshs.com/), but implemented as procedural mesh rendering for Gideros.
 
 ---
 
