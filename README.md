@@ -175,8 +175,7 @@ require "examples/radial_gradient_splash_masks"
 ```
 
 ---
-
-## Features
+## How it works
 
 A usual 2D gradient can be treated as a color interpolation problem.
 **Gideros Gradient Mesh** approaches that problem geometrically: it creates vertices, assigns colors to those vertices, and lets the renderer interpolate color values across triangles.
@@ -205,7 +204,7 @@ If a rectangle has width $w$, height $h$, and anchor point $(a_x, a_y)$, a verte
 $$
 P_{ij} =
 \left(
-(u_i - a_x)w,
+(u_i - a_x)w,,
 (v_j - a_y)h
 \right)
 $$
@@ -226,7 +225,7 @@ $$
 C(t) = (1 - t)C_0 + tC_1
 $$
 
-Where:
+where:
 
 $$
 0 \leq t \leq 1
@@ -257,12 +256,12 @@ A radial vertex can be described as:
 $$
 P_{ij} =
 \left(
-c_x + s_x,p^x_j,r\cos(\theta_i),
-c_y + s_y,p^y_j,r\sin(\theta_i)
+c_x + s_x \cdot p^x_j \cdot r \cdot \cos(\theta_i),\,
+c_y + s_y \cdot p^y_j \cdot r \cdot \sin(\theta_i)
 \right)
 $$
 
-Where:
+where:
 
 * $(c_x, c_y)$ is the center point;
 * $s_x$ and $s_y$ are scale factors from `scalePolygon`;
@@ -281,7 +280,7 @@ $$
 \rho
 $$
 
-Where $\rho$ is the mesh rotation angle coming from `rotationMesh`.
+where $\rho$ is the mesh rotation angle from `rotationMesh`, expressed in radians.
 
 This is why the same function can produce circles, ellipses, regular polygons, rotated polygons, and radial texture masks: changing $n$, $r$, $s_x$, $s_y$, and $\rho$ changes the generated mesh.
 
@@ -300,10 +299,12 @@ p_j =
 \frac{r_{\text{in}}}{r}
 +
 j \cdot
-\frac{r - r_{\text{in}}}{m r}
+\frac{r - r_{\text{in}}}{m r},
+\qquad
+j = 1, 2, \ldots, m
 $$
 
-Where $m$ is the number of color stops.
+where $m$ is the number of color stops.
 
 This creates donut-like gradients and ring-shaped meshes while keeping the same polygon construction logic.
 
@@ -341,14 +342,13 @@ $$
 V_{ij} = d_y v_j + a_y(t_h - d_y)
 $$
 
-Where:
+where:
 
-* $t_w$, $t_h$ are the texture width and height;
-* $d_x$, $d_y$ are the visible texture dimensions after scaling;
-* $a_x$, $a_y$ are the texture anchor values.
+* $t_w$ and $t_h$ are the texture width and height;
+* $d_x$ and $d_y$ are the visible texture dimensions after scaling;
+* $a_x$ and $a_y$ are the texture anchor values.
 
 For polygon meshes, the texture coordinates follow the same radial idea as the geometric vertices, which is what allows image textures to be clipped, rotated, and tinted by polygon geometry.
-
 
 ---
 
