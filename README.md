@@ -242,7 +242,7 @@ If a rectangle has width $w$, height $h$, and anchor point $(a_x, a_y)$, a verte
 $$
 P_{ij} =
 \left(
-(u_i - a_x)w,,
+(u_i - a_x)w,\,
 (v_j - a_y)h
 \right)
 $$
@@ -556,3 +556,5 @@ See also the list of [contributors](https://github.com/HubertRonald/GradientMesh
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+Asset provenance and third-party asset limitations are documented in [ASSET_PROVENANCE.md](ASSET_PROVENANCE.md).

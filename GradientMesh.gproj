@@ -10,7 +10,6 @@
   </folder>
   <folder name="images">
    <folder name="landscapes">
-    <file source="assets/images/landscapes/jeremiah-berman-282409.png"/>
     <file source="assets/images/landscapes/pexels-photo-89432.png"/>
    </folder>
    <folder name="legacy-faces">
@@ -19,11 +18,8 @@
    </folder>
    <folder name="splashes">
     <file source="assets/images/splashes/splashWhite_001.png"/>
-    <file source="assets/images/splashes/splashWhite_002.png"/>
     <file source="assets/images/splashes/splashWhite_003.png"/>
-    <file source="assets/images/splashes/splashWhite_004.png"/>
     <file source="assets/images/splashes/splashWhite_005.png"/>
-    <file source="assets/images/splashes/splashWhite_006.png"/>
     <file source="assets/images/splashes/splashWhite_007.png"/>
     <file source="assets/images/splashes/splashWhite_008.png"/>
     <file source="assets/images/splashes/splashWhite_009.png"/>
@@ -42,7 +38,6 @@
  </folder>
  <folder name="images">
   <folder name="landscapes">
-   <file name="assets/images/landscapes/jeremiah-berman-282409.png"/>
    <file name="assets/images/landscapes/pexels-photo-89432.png"/>
   </folder>
   <folder name="legacy-faces">
@@ -50,13 +45,9 @@
    <file name="assets/images/legacy-faces/peruvianModel_Maju_001.png"/>
   </folder>
   <folder name="splashes">
-   <file name="assets/images/splashes/splashWhite.psd"/>
    <file name="assets/images/splashes/splashWhite_001.png"/>
-   <file name="assets/images/splashes/splashWhite_002.png"/>
    <file name="assets/images/splashes/splashWhite_003.png"/>
-   <file name="assets/images/splashes/splashWhite_004.png"/>
    <file name="assets/images/splashes/splashWhite_005.png"/>
-   <file name="assets/images/splashes/splashWhite_006.png"/>
    <file name="assets/images/splashes/splashWhite_007.png"/>
    <file name="assets/images/splashes/splashWhite_008.png"/>
    <file name="assets/images/splashes/splashWhite_009.png"/>

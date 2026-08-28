@@ -12,7 +12,6 @@
 	
 	Design & Coded
 	by Hubert Ronald
-	contact: hubert.ronald@gmail.com
 	Development Studio: [-] Liasoft
 	Date: Jan 2th, 2018
 	
